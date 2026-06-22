@@ -1,0 +1,41 @@
+[project]
+name = "zcord"
+version = "2026.0.1-dev"
+description = "Minimalistic Discord API wrapper"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiohttp>=3.13.5",
+    "orjson>=3.11.9",
+]
+
+[project.optional-dependencies]
+speed = [
+    "uvloop>=0.22.1",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 80
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "W",   # pycodestyle warnings
+    "I",   # isort
+    "N",   # naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "SIM", # simplify
+    "C4",  # comprehensions
+    "RUF", # ruff-specific
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
