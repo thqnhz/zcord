@@ -1,13 +1,28 @@
 [project]
 name = "zcord"
 version = "2026.0.1-dev"
+authors = [
+    { name = "ZyubyL" }
+]
 description = "Minimalistic Discord API wrapper"
 readme = "README.md"
 requires-python = ">=3.12"
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
 dependencies = [
     "aiohttp>=3.13.5",
     "orjson>=3.11.9",
 ]
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.urls]
+Homepage = "https://github.com/thqnhz/zcord"
+Issues = "https://github.com/thqnhz/zcord/issues"
 
 [project.optional-dependencies]
 speed = [
