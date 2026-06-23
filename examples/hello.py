@@ -14,7 +14,8 @@ async def main():
             f"/channels/{config.CHANNEL_ID}/messages",
             json={"content": "Hello, world!"},
         )
-        print(resp)
+        m = zcord.Message._from_payload(dict(resp))
+        print(m)
 
 
 asyncio.run(main())
