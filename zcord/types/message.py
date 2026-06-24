@@ -5,6 +5,8 @@ from datetime import datetime
 from enum import IntEnum
 from typing import Any, Self
 
+from zcord.utils import _MISSING
+
 from .snowflake import Snowflake
 
 
@@ -62,33 +64,33 @@ class Message:
     mention_everyone: bool
     mentions: list
     mention_roles: list
-    mention_channels: list | None
+    mention_channels: list | _MISSING
     attachments: list
     embeds: list
-    reactions: list | None
-    nonce: int | str | None  # Never seen this one before
+    reactions: list | _MISSING
+    nonce: int | str | _MISSING  # Never seen this one before
     pinned: bool
-    webhook_id: Snowflake | None
+    webhook_id: Snowflake | _MISSING
     type: _MessageType
-    activity: Any | None
-    application: Any | None
-    application_id: Snowflake | None
-    flags: int | None
-    message_reference: Any | None
-    message_snapshots: Any | None
-    referenced_message: Message | None
-    interaction_metadata: Any | None
-    interaction: Any | None
-    thread: Any | None  # NOTE: Channel
+    activity: Any | _MISSING
+    application: Any | _MISSING
+    application_id: Snowflake | _MISSING
+    flags: int | _MISSING
+    message_reference: Any | _MISSING
+    message_snapshots: Any | _MISSING
+    referenced_message: Message | _MISSING | None
+    interaction_metadata: Any | _MISSING
+    interaction: Any | _MISSING
+    thread: Any | _MISSING  # NOTE: Channel
     components: list
-    sticker_items: Any | None
-    stickers: list
-    position: int | None
-    role_subscription_data: Any | None
-    resolved: Any | None
-    poll: Any | None
-    call: Any | None
-    shared_client_theme: Any | None
+    sticker_items: Any | _MISSING
+    stickers: list | _MISSING
+    position: int | _MISSING
+    role_subscription_data: Any | _MISSING
+    resolved: Any | _MISSING
+    poll: Any | _MISSING
+    call: Any | _MISSING
+    shared_client_theme: Any | _MISSING
 
     @classmethod
     def _from_payload(cls, payload: dict) -> Self:
@@ -106,37 +108,37 @@ class Message:
         mention_everyone: bool = payload.get("mention_everyone", False)
         mentions: list = payload.get("mentions", [])
         mention_roles: list = payload.get("mention_roles", [])
-        mention_channels: list = payload.get("mention_channels", [])
+        mention_channels: list = payload.get("mention_channels", _MISSING)
         attachments: list = payload.get("attachments", [])
         embeds: list = payload.get("embeds", [])
-        reactions: list = payload.get("reactions", [])
-        nonce = payload.get("nonce")
+        reactions: list = payload.get("reactions", _MISSING)
+        nonce: int | str = payload.get("nonce", _MISSING)
         pinned: bool = payload.get("pinned", False)
-        webhook_id = Snowflake(payload.get("webhook_id", -1))
-        type: int = _MessageType(payload.get("type", 0))
-        activity = payload.get("activity")
-        application = payload.get("application")
-        application_id = Snowflake(payload.get("application_id", -1))
-        flags: int | None = payload.get("flags")
-        message_reference = payload.get("message_reference")
-        message_snapshots = payload.get("message_snapshots")
-        referenced_message = (
-            Message._from_payload(payload.get("referenced_message", {}))
-            if payload.get("referenced_message")
-            else None
-        )
-        interaction_metadata = payload.get("interaction_metadata")
-        interaction = payload.get("interaction")
-        thread = payload.get("thread")
-        components = payload.get("components", [])
-        sticker_items = payload.get("sticker_items")
-        stickers = payload.get("stickers", [])
-        position = payload.get("position")
-        role_subscription_data = payload.get("role_subscription_data")
-        resolved = payload.get("resolved")
-        poll = payload.get("poll")
-        call = payload.get("call")
-        shared_client_theme = payload.get("shared_client_theme")
+        webhook_id = payload.get("webhook_id", _MISSING)
+        if webhook_id is not _MISSING:
+            webhook_id = Snowflake(webhook_id)
+        type = _MessageType(payload.get("type", 0))
+        activity = payload.get("activity", _MISSING)
+        application = payload.get("application", _MISSING)
+        application_id: int = payload.get("application_id", _MISSING)
+        if application_id is not _MISSING:
+            application_id = Snowflake(application_id)
+        flags: int = payload.get("flags", _MISSING)
+        message_reference = payload.get("message_reference", _MISSING)
+        message_snapshots = payload.get("message_snapshots", _MISSING)
+        referenced_message = payload.get("referenced_message", _MISSING)
+        interaction_metadata = payload.get("interaction_metadata", _MISSING)
+        interaction = payload.get("interaction", _MISSING)  # Deprecated
+        thread = payload.get("thread", _MISSING)
+        components: list = payload.get("components", _MISSING)
+        sticker_items: list = payload.get("sticker_items", _MISSING)
+        stickers: list = payload.get("stickers", _MISSING)
+        position: int = payload.get("position", _MISSING)
+        role_subscription_data = payload.get("role_subscription_data", _MISSING)
+        resolved = payload.get("resolved", _MISSING)
+        poll = payload.get("poll", _MISSING)
+        call = payload.get("call", _MISSING)
+        shared_client_theme = payload.get("shared_client_theme", _MISSING)
 
         return cls(
             id=id,
