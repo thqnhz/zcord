@@ -8,6 +8,7 @@ from typing import Any, Self
 from zcord.utils import _MISSING
 
 from .snowflake import Snowflake
+from .user import User
 
 
 class _MessageType(IntEnum):
@@ -56,7 +57,7 @@ class Message:
 
     id: Snowflake
     channel_id: Snowflake
-    author: Any  # NOTE: User object
+    author: User
     content: str
     timestamp: datetime
     edited_timestamp: datetime | None
@@ -96,7 +97,7 @@ class Message:
     def _from_payload(cls, payload: dict) -> Self:
         id = Snowflake(payload.get("id", -1))
         channel_id = Snowflake(payload.get("id", -1))
-        author = payload.get("author")
+        author = User._from_payload(payload.get("author", {}))
         content: str = payload.get("content", "")
         timestamp = datetime.fromisoformat(str(payload.get("timestamp")))
         e_t = payload.get("edited_timestamp")
