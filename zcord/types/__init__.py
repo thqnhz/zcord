@@ -1,4 +1,5 @@
-from .message import Message as Message
-from .snowflake import Snowflake as Snowflake
+from .message import Message
+from .snowflake import Snowflake
+from .user import User
 
-__all__ = ["Message", "Snowflake"]
+__all__ = ["Message", "Snowflake", "User"]

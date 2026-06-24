@@ -1,6 +1,6 @@
 """Zcord - Functional programming discord API wrapper"""
 
-from .bot import Bot as Bot
-from .types import Message as Message
+from .bot import Bot
+from .types import Message, Snowflake, User
 
-__all__ = ["Bot", "Message"]
+__all__ = ["Bot", "Message", "Snowflake", "User"]

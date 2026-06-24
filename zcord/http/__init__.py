@@ -1,3 +1,3 @@
-from .client import HTTPClient as HTTPClient
+from .client import HTTPClient
 
 __all__ = ["HTTPClient"]
