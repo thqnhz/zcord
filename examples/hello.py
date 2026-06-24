@@ -8,6 +8,7 @@ bot = zcord.Bot(config.DISCORD_TOKEN)
 
 
 async def main():
+    print(zcord.__version__)
     async with bot.http:
         resp = await bot.http.request(
             "POST",
