@@ -96,7 +96,7 @@ class Message:
     @classmethod
     def _from_payload(cls, payload: dict) -> Self:
         id = Snowflake(payload.get("id", -1))
-        channel_id = Snowflake(payload.get("id", -1))
+        channel_id = Snowflake(payload.get("channel_id", -1))
         author = User._from_payload(payload.get("author", {}))
         content: str = payload.get("content", "")
         timestamp = datetime.fromisoformat(str(payload.get("timestamp")))
