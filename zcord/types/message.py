@@ -63,8 +63,8 @@ class Message:
     edited_timestamp: datetime | None
     tts: bool
     mention_everyone: bool
-    mentions: list
-    mention_roles: list
+    mentions: list[User]
+    mention_roles: list[Snowflake]
     mention_channels: list | _MISSING
     attachments: list
     embeds: list
@@ -108,7 +108,13 @@ class Message:
         tts: bool = payload.get("tts", False)
         mention_everyone: bool = payload.get("mention_everyone", False)
         mentions: list = payload.get("mentions", [])
+        if len(mentions) != 0:
+            mentions: list[User] = [User._from_payload(u) for u in mentions]
         mention_roles: list = payload.get("mention_roles", [])
+        if len(mention_roles) != 0:
+            mention_roles: list[Snowflake] = [
+                Snowflake(r) for r in mention_roles
+            ]
         mention_channels: list = payload.get("mention_channels", _MISSING)
         attachments: list = payload.get("attachments", [])
         embeds: list = payload.get("embeds", [])
