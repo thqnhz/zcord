@@ -51,7 +51,7 @@ class _MessageType(IntEnum):
     POLL_RESULT = 46
 
 
-@dataclass
+@dataclass(frozen=True)
 class Message:
     """Represent a Discord Message"""
 

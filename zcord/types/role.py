@@ -8,7 +8,7 @@ from zcord.utils import _MISSING
 from .snowflake import Snowflake
 
 
-@dataclass
+@dataclass(frozen=True)
 class RoleTags:
     type null = Literal[True]
     bot_id: Snowflake | _MISSING
@@ -44,7 +44,7 @@ class RoleTags:
         )
 
 
-@dataclass
+@dataclass(frozen=True)
 class RoleColors:
     primary_color: int
     secondary_color: int | None
@@ -63,7 +63,7 @@ class RoleColors:
         )
 
 
-@dataclass
+@dataclass(frozen=True)
 class Role:
     """Represent a Discord Role"""
 

@@ -8,7 +8,7 @@ from zcord.utils import _MISSING
 from .snowflake import Snowflake
 
 
-@dataclass
+@dataclass(frozen=True)
 class User:
     """Represent a Discord User"""
 
