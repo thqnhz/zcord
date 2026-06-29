@@ -28,6 +28,11 @@ Issues = "https://github.com/thqnhz/zcord/issues"
 speed = [
     "uvloop>=0.22.1",
 ]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.6",
+    "mkdocstrings[python]>=1.0.4",
+]
 
 [tool.ruff]
 target-version = "py312"
@@ -57,9 +62,6 @@ build-backend = "setuptools.build_meta"
 
 [dependency-groups]
 dev = [
-    {include-group = "docs"}
-]
-docs = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.7.6",
     "mkdocstrings[python]>=1.0.4",
