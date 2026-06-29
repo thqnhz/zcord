@@ -53,7 +53,52 @@ class _MessageType(IntEnum):
 
 @dataclass(frozen=True)
 class Message:
-    """Represent a Discord Message"""
+    """Represent a Discord Message
+
+    Attributes:
+        id: The ID of the message.
+        channel_id: The ID of the channel the message was sent in.
+        author: The author of this message.
+        content: The message content.
+        timestamp: The timestamp when this message was sent.
+        edited_timestamp: The timestamp when this message was edited.
+        tts: Whether this message is a text-to-speech message.
+        mention_everyone: Whether this message mentions everyone.
+        mentions: Users mentioned in this message.
+        mention_roles: Roles mentioned in this message.
+        mention_channels: Channels mentioned in this message.
+        attachments: Attached files in this message.
+        embeds: Embeded contents in this message.
+        reactions: Reactions to this message.
+        pinned: Whether this message is pinned.
+        webhook_id: The webhook's ID if this message was sent via webhook.
+        type: The type of the message.
+        activity: Activity object sent via Rich presence related embeds.
+        application: Partial application object sent via
+                     Rich presence related embeds.
+        application_id: The application ID if this message was sent
+                        via an `Interaction` or an application-owned
+                        webhook.
+        flags: The message flags combined as a bitfield.
+        message_reference: The source of the crosspost, channel follow add,
+                           pin, or reply message.
+        message_snapshots: The message associated with the `message_reference`.
+                           This is a minimal subset of fields in a `Message`.
+        referenced_message: The message associated with the `message_reference`.
+        interaction_metadata: Message interaction metadata.
+        thread: The thread that was started from this message.
+        components: Interactive components in this message.
+        sticker_items: Stickers in this message.
+        position: The approximated position of the message in a thread.
+        role_subscription_data: Data of the subscription if this message is a
+                                `ROLE_SUBSCRIPTION_PURCHASE` message
+        resolved: Data for users, members, channels, and roles referenced in
+                  this message.
+        poll: A poll.
+        call: The call associated with this message.
+        shared_client_theme: The custom client-side theme shared
+                             in this message.
+    """
 
     id: Snowflake
     channel_id: Snowflake
@@ -69,7 +114,6 @@ class Message:
     attachments: list
     embeds: list
     reactions: list | _MISSING
-    nonce: int | str | _MISSING  # Never seen this one before
     pinned: bool
     webhook_id: Snowflake | _MISSING
     type: _MessageType
@@ -81,11 +125,9 @@ class Message:
     message_snapshots: Any | _MISSING
     referenced_message: Message | _MISSING | None
     interaction_metadata: Any | _MISSING
-    interaction: Any | _MISSING
     thread: Any | _MISSING  # NOTE: Channel
     components: list
     sticker_items: Any | _MISSING
-    stickers: list | _MISSING
     position: int | _MISSING
     role_subscription_data: Any | _MISSING
     resolved: Any | _MISSING
@@ -119,7 +161,6 @@ class Message:
         attachments: list = payload.get("attachments", [])
         embeds: list = payload.get("embeds", [])
         reactions: list = payload.get("reactions", _MISSING)
-        nonce: int | str = payload.get("nonce", _MISSING)
         pinned: bool = payload.get("pinned", False)
         webhook_id = payload.get("webhook_id", _MISSING)
         if webhook_id is not _MISSING:
@@ -135,11 +176,9 @@ class Message:
         message_snapshots = payload.get("message_snapshots", _MISSING)
         referenced_message = payload.get("referenced_message", _MISSING)
         interaction_metadata = payload.get("interaction_metadata", _MISSING)
-        interaction = payload.get("interaction", _MISSING)  # Deprecated
         thread = payload.get("thread", _MISSING)
         components: list = payload.get("components", _MISSING)
         sticker_items: list = payload.get("sticker_items", _MISSING)
-        stickers: list = payload.get("stickers", _MISSING)
         position: int = payload.get("position", _MISSING)
         role_subscription_data = payload.get("role_subscription_data", _MISSING)
         resolved = payload.get("resolved", _MISSING)
@@ -162,7 +201,6 @@ class Message:
             attachments=attachments,
             embeds=embeds,
             reactions=reactions,
-            nonce=nonce,
             pinned=pinned,
             webhook_id=webhook_id,
             type=type,
@@ -174,11 +212,9 @@ class Message:
             message_snapshots=message_snapshots,
             referenced_message=referenced_message,
             interaction_metadata=interaction_metadata,
-            interaction=interaction,
             thread=thread,
             components=components,
             sticker_items=sticker_items,
-            stickers=stickers,
             position=position,
             role_subscription_data=role_subscription_data,
             poll=poll,

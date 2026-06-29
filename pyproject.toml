@@ -1,6 +1,6 @@
 [project]
 name = "zcord"
-version = "2026.0.1.dev2"
+version = "2026.0.1.dev4"
 authors = [
     { name = "ZyubyL" }
 ]
@@ -54,3 +54,13 @@ indent-style = "space"
 [build-system]
 requires = ["setuptools>=75.0"]
 build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    {include-group = "docs"}
+]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.6",
+    "mkdocstrings[python]>=1.0.4",
+]
