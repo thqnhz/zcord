@@ -40,6 +40,8 @@ plugins:
             show_root_heading: true
             show_root_toc_entry: false
             docstring_style: google
+          inventories:
+            - https://docs.python.org/3/objects.inv
 
 # extra_css:
 #   - stylesheets/extra.css

@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal, Self
 
-from zcord.utils import _MISSING
+from zcord.utils import MISSING
 
 from .snowflake import Snowflake
 
@@ -11,29 +11,29 @@ from .snowflake import Snowflake
 @dataclass(frozen=True)
 class RoleTags:
     type null = Literal[True]
-    bot_id: Snowflake | _MISSING
-    integration_id: Snowflake | _MISSING
-    premium_subscriber: null | _MISSING
-    subscription_listing_id: Snowflake | _MISSING
-    available_for_purchase: null | _MISSING
-    guild_connections: null | _MISSING
+    bot_id: Snowflake | MISSING
+    integration_id: Snowflake | MISSING
+    premium_subscriber: null | MISSING
+    subscription_listing_id: Snowflake | MISSING
+    available_for_purchase: null | MISSING
+    guild_connections: null | MISSING
 
     @classmethod
     def _from_payload(cls, payload: dict) -> Self:
-        bot_id = payload.get("bot_id", _MISSING)
-        if bot_id is not _MISSING:
+        bot_id = payload.get("bot_id", MISSING)
+        if bot_id is not MISSING:
             bot_id = Snowflake(bot_id)
-        integration_id = payload.get("integration_id", _MISSING)
-        if integration_id is not _MISSING:
+        integration_id = payload.get("integration_id", MISSING)
+        if integration_id is not MISSING:
             integration_id = Snowflake(integration_id)
-        premium_subscriber = payload.get("premium_subscriber", _MISSING)
+        premium_subscriber = payload.get("premium_subscriber", MISSING)
         subscription_listing_id = payload.get(
-            "subscription_listing_id", _MISSING
+            "subscription_listing_id", MISSING
         )
-        if subscription_listing_id is not _MISSING:
+        if subscription_listing_id is not MISSING:
             subscription_listing_id = Snowflake(subscription_listing_id)
-        available_for_purchase = payload.get("available_for_purchase", _MISSING)
-        guild_connections = payload.get("guild_connections", _MISSING)
+        available_for_purchase = payload.get("available_for_purchase", MISSING)
+        guild_connections = payload.get("guild_connections", MISSING)
         return cls(
             bot_id=bot_id,
             integration_id=integration_id,
@@ -71,13 +71,13 @@ class Role:
     name: str
     colors: RoleColors
     hoist: bool
-    icon: str | None | _MISSING
-    unicode_emoji: str | None | _MISSING
+    icon: str | None | MISSING
+    unicode_emoji: str | None | MISSING
     position: int
     permissions: str
     managed: bool
     mentionable: bool
-    tags: RoleTags | _MISSING
+    tags: RoleTags | MISSING
     flags: int
 
     @classmethod
@@ -85,19 +85,19 @@ class Role:
         id = Snowflake(payload.get("id", -1))
         name: str = payload.get("name", "")
         colors = payload.get("colors")
-        if colors is not None and colors is not _MISSING:
+        if colors is not None and colors is not MISSING:
             colors = RoleColors._from_payload(colors)
         else:
             colors = RoleColors.default()
         hoist: bool = payload.get("hoist", False)
-        icon: str = payload.get("icon", _MISSING)
-        unicode_emoji: str | None = payload.get("unicode_emoji", _MISSING)
+        icon: str = payload.get("icon", MISSING)
+        unicode_emoji: str | None = payload.get("unicode_emoji", MISSING)
         position: int = payload.get("position", -1)
         permissions: str = payload.get("permissions", "")
         managed: bool = payload.get("managed", False)
         mentionable: bool = payload.get("mentionable", False)
-        tags = payload.get("tags", _MISSING)
-        if tags is not _MISSING:
+        tags = payload.get("tags", MISSING)
+        if tags is not MISSING:
             tags = RoleTags._from_payload(tags)
         flags: int = payload.get("flags", -1)
         return cls(
