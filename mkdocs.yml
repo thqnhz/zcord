@@ -1,7 +1,33 @@
 site_name: Zcord
+site_description: A thin Discord API wrapper written in Python
+site_url: https://readthedocs.io/zcord/
+
+repo_name: thqnhz/zcord
+repo_url: https://github.com/thqnhz/zcord
+copyright: Copyright &copy; 2026 ZyubyL
 
 theme:
   name: material
+  palette:
+    scheme: slate
+  locale: en
+  features:
+    - navigation.tabs
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.top
+    - navigation.tracking
+    - navigation.expand
+    - navigation.path
+    - navigation.prune
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - toc.integrate
+  icon:
+    repo: fontawesome/brands/github
 
 plugins:
   - search
@@ -15,6 +41,9 @@ plugins:
             show_root_toc_entry: false
             docstring_style: google
 
+# extra_css:
+#   - stylesheets/extra.css
+
 nav:
   - Home: index.md
-  - API: api.md
+  - API Reference: api.md
