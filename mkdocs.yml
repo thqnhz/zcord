@@ -7,7 +7,7 @@ repo_url: https://github.com/thqnhz/zcord
 copyright: Copyright &copy; 2026 ZyubyL
 
 theme:
-  name: material
+  name: materialx
   palette:
     scheme: slate
   locale: en
@@ -30,7 +30,9 @@ theme:
     repo: fontawesome/brands/github
 
 plugins:
-  - search
+  - search:
+      enabled: true
+      lang: en
   - mkdocstrings:
       handlers:
         python:
