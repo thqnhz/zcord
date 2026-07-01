@@ -127,7 +127,7 @@ class Message:
     flags: int | MISSING
     message_reference: Any | MISSING
     message_snapshots: Any | MISSING
-    referenced_message: Message | MISSING | None
+    referenced_message: Message | None | MISSING
     interaction_metadata: Any | MISSING
     thread: Any | MISSING  # NOTE: Channel
     components: list
