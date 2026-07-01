@@ -23,6 +23,7 @@ license-files = ["LICENSE"]
 [project.urls]
 Homepage = "https://github.com/thqnhz/zcord"
 Issues = "https://github.com/thqnhz/zcord/issues"
+Documentation = "https://zcord.readthedocs.io"
 
 [project.optional-dependencies]
 speed = [

@@ -28,6 +28,7 @@ theme:
     - toc.integrate
   icon:
     repo: fontawesome/brands/github
+  logo: assets/zcord_original.png
 
 plugins:
   - search:
