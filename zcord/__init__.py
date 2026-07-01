@@ -3,7 +3,16 @@
 from importlib.metadata import version
 
 from .bot import Bot
-from .types import Channel, ChannelType, Message, Role, Snowflake, User
+from .types import (
+    Channel,
+    ChannelType,
+    Message,
+    MessageType,
+    Role,
+    RoleColors,
+    Snowflake,
+    User,
+)
 from .utils import MISSING
 
 __version__ = version("zcord")
@@ -14,7 +23,9 @@ __all__ = [
     "Channel",
     "ChannelType",
     "Message",
+    "MessageType",
     "Role",
+    "RoleColors",
     "Snowflake",
     "User",
 ]

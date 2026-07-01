@@ -11,7 +11,11 @@ from .snowflake import Snowflake
 from .user import User
 
 
-class _MessageType(IntEnum):
+class MessageType(IntEnum):
+    """
+    The type of the message.
+    """
+
     DEFAULT = 0
     RECIPIENT_ADD = 1
     RECIPIENT_REMOVE = 2
@@ -53,7 +57,7 @@ class _MessageType(IntEnum):
 
 @dataclass(frozen=True)
 class Message:
-    """Represent a Discord Message
+    """Represent a Discord message.
 
     Attributes:
         id: The ID of the message.
@@ -116,7 +120,7 @@ class Message:
     reactions: list | MISSING
     pinned: bool
     webhook_id: Snowflake | MISSING
-    type: _MessageType
+    type: MessageType
     activity: Any | MISSING
     application: Any | MISSING
     application_id: Snowflake | MISSING
@@ -165,7 +169,7 @@ class Message:
         webhook_id = payload.get("webhook_id", MISSING)
         if webhook_id is not MISSING:
             webhook_id = Snowflake(webhook_id)
-        type = _MessageType(payload.get("type", 0))
+        type = MessageType(payload.get("type", 0))
         activity = payload.get("activity", MISSING)
         application = payload.get("application", MISSING)
         application_id: int = payload.get("application_id", MISSING)

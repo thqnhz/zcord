@@ -1,0 +1,37 @@
+:root {
+    /*--crust: #11111b;
+    --mantle: #181825;
+    --base: #1e1e2e;*/
+    --text: #cdd6f4;
+}
+
+body {
+    /*background: var(--base);*/
+    color: var(--text);
+}
+
+.doc-symbol-parameter::after,
+.doc-symbol-type_parameter::after {
+    content: "P" !important;
+}
+
+.doc-symbol-attribute::after {
+    content: "A" !important;
+}
+
+.doc-symbol-function::after {
+    content: "F" !important;
+}
+
+.doc-symbol-method::after,
+.doc-symbol-module::after {
+    content: "M" !important;
+}
+
+.doc-symbol-class::after {
+    content: "C" !important;
+}
+
+.doc-symbol-type_alias::after {
+    content: "T" !important;
+}

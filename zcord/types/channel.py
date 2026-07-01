@@ -51,7 +51,7 @@ class ChannelType(IntEnum):
 @dataclass
 class Channel:
     """
-    Represent a Discord Guild or DM channel
+    Represent a Discord Guild or DM channel.
 
     Attributes:
         id: The ID of the channel.

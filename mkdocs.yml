@@ -38,13 +38,28 @@ plugins:
             show_source: true
             show_signature_annotations: true
             show_root_heading: true
+            show_bases: false
+            parameter_headings: true
+            show_root_members_full_path: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
             show_root_toc_entry: false
+            show_labels: false
+            modernize_annotations: true
+            members_order: source
             docstring_style: google
           inventories:
             - https://docs.python.org/3/objects.inv
 
-# extra_css:
-#   - stylesheets/extra.css
+markdown_extensions:
+  - toc:
+      toc_depth: 4
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+extra_css:
+  - stylesheets/extra.css
 
 nav:
   - Home: index.md

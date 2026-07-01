@@ -46,12 +46,25 @@ class RoleTags:
 
 @dataclass(frozen=True)
 class RoleColors:
+    """
+    Contain the colors of the role.
+
+    Attributes:
+        primary_color: The primary color of the role.
+        secondary_color: The secondary color of the role (gradient color).
+        tertiary_color: The tertiary color of the role (holographic style).
+    """
+
     primary_color: int
     secondary_color: int | None
     tertiary_color: int | None
 
     @classmethod
     def default(cls) -> Self:
+        """
+        Non color role has the default `primary_color` of `0` and `None`
+        for other fields.
+        """
         return cls(primary_color=0, secondary_color=None, tertiary_color=None)
 
     @classmethod
@@ -65,7 +78,24 @@ class RoleColors:
 
 @dataclass(frozen=True)
 class Role:
-    """Represent a Discord Role"""
+    """
+    Represent a Discord role.
+
+    Attributes:
+        id: The role's ID.
+        name: The role's name.
+        colors: The role's colors.
+        hoist: Whether the option for "Display role members
+               separately from online members" is enabled.
+        icon: The role's icon hash.
+        unicode_emoji: The role's unicode emoji.
+        position: Position of the role.
+        permissions: The role's permissions bit set.
+        managed: Whether the role is managed by an integration.
+        mentionable: Whether the role is mentionable.
+        tags: The tags of the role.
+        flags: The role's flags combined as a bitfield.
+    """
 
     id: Snowflake
     name: str

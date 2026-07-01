@@ -2,8 +2,9 @@
 
 Welcome to Zcord documentation page.
 
-> [!NOTE]
-> The project is still in development!
+!!! note
+
+    ***The project is still in development!***
 
 ## Installation
 
