@@ -82,19 +82,31 @@ class Role:
     Represent a Discord role.
 
     Attributes:
-        id: The role's ID.
-        name: The role's name.
-        colors: The role's colors.
-        hoist: Whether the option for "Display role members
-               separately from online members" is enabled.
-        icon: The role's icon hash.
-        unicode_emoji: The role's unicode emoji.
-        position: Position of the role.
-        permissions: The role's permissions bit set.
-        managed: Whether the role is managed by an integration.
-        mentionable: Whether the role is mentionable.
-        tags: The tags of the role.
-        flags: The role's flags combined as a bitfield.
+        id:
+            The role's ID.
+        name:
+            The role's name.
+        colors:
+            The role's colors.
+        hoist:
+            Whether the option for "Display role members separately from online
+            members" is enabled.
+        icon:
+            The role's icon hash.
+        unicode_emoji:
+            The role's unicode emoji.
+        position:
+            Position of the role.
+        permissions:
+            The role's permissions bit set.
+        managed:
+            Whether the role is managed by an integration.
+        mentionable:
+            Whether the role is mentionable.
+        tags:
+            The tags of the role.
+        flags:
+            The role's flags combined as a bitfield.
     """
 
     id: Snowflake

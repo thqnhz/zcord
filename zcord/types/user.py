@@ -14,28 +14,46 @@ class User:
     Represent a Discord User
 
     Attributes:
-        id: The user's ID.
-        username: The user's username.
-        discriminator: The user's Discord tag.
-        global_name: The user's display name if it is set.
-        avatar: The user's avatar hash.
-        bot: Whether the user is a bot.
-        system: Whether the user is an **Official Discord System** user.
-        mfa_enabled: Where the user has multi factor authentication enabled.
-        banner: The user's banner hash.
-        accent_color: The user's banner color encoded as an [`int`][].
-        locale: The user's chosen language option.
-        verified: Whether the email on this account is verified.
-        email: The user's email.
-        flags: The user's account flags.
-        premium_type: The type of Nitro subscription of the user.
-        public_flags: The user's public account flags.
-        avatar_decoration_data: The user's avatar decoration data.
-        collectibles: The user's collectibles data.
-        primary_guild: The user's primary guild.
+        id:
+            The user's ID.
+        username:
+            The user's username.
+        discriminator:
+            The user's Discord tag.
 
-    Notes:
-        Except bots, `User.discriminator` will be `0`.
+            **Notes**: Except bots, this field will be `0`.
+        global_name:
+            The user's display name if it is set.
+        avatar:
+            The user's avatar hash.
+        bot:
+            Whether the user is a bot.
+        system:
+            Whether the user is an **Official Discord System** user.
+        mfa_enabled:
+            Whether the user has multi factor authentication enabled.
+        banner:
+            The user's banner hash.
+        accent_color:
+            The user's banner color encoded as an `int`.
+        locale:
+            The user's chosen language option.
+        verified:
+            Whether the email on this account is verified.
+        email:
+            The user's email.
+        flags:
+            The user's account flags.
+        premium_type:
+            The type of Nitro subscription of the user.
+        public_flags:
+            The user's public account flags.
+        avatar_decoration_data:
+            The user's avatar decoration data.
+        collectibles:
+            The user's collectibles data.
+        primary_guild:
+            The user's primary guild.
     """
 
     id: Snowflake

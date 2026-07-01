@@ -59,73 +59,101 @@ class Channel:
     Represent a Discord server or DM channel.
 
     Attributes:
-        id: The ID of the channel.
-        type: The channel type.
-        guild_id: The guild id the message belongs to.
-        position: The sorting position of the channel.
-        permission_overwrites: A list of explicit permission overwrites
-                               for members and roles.
-        name: The name of the channel.
+        id:
+            The ID of the channel.
+        type:
+            The channel type.
+        guild_id:
+            The guild id the message belongs to.
+        position:
+            The sorting position of the channel.
+        permission_overwrites:
+            A list of explicit permission overwrites for members and roles.
+        name:
+            The name of the channel.
 
-              **Notes**: Can only be in 1-100 characters range.
-        topic: The channel's topic.
+            **Notes**: Can only be in 1-100 characters range.
+        topic:
+            The channel's topic.
 
-               **Notes**: For most `ChannelType`, it can be up to 1024
-               characters long. Except `GUILD_FORUM` which can be up to
-               4096 characters.
-        nsfw: Whether the channel is age-restricted.
-        last_message_id: The ID of the last message sent in this channel.
-        bitrate: The bit per second of the voice channel.
-        user_limit: The user limit of the voice channel.
-        rate_limit_per_user: The channel slowmode in seconds.
-                             This ranges from 0-21600.
-        recipients: The recipients of the DM.
-        icon: The icon hash of the Group DM.
-        owner_id: The ID of the Group DM or a thread.
-        applicaiton_id: The app ID of the Group DM if it's created by a bot.
-        managed: Whether the channel is managed.
-        parent_id: For guild channels, it's the parent category ID.
-                   For threads, it's the text channel ID.
-        last_pin_timestamp: When the last pinned message was pinned.
-        rtc_region: ID of the region of the voice channel.
-                    Automatic when set to None.
-        video_quality_mode: The camera video quality mode of the voice channel.
-                            `1` when not present.
-        message_count: Number of messages in a thread.
+            **Notes**: For most `ChannelType`, it can be up to 1024
+            characters long. Except `GUILD_FORUM` which can be up to
+            4096 characters.
+        nsfw:
+            Whether the channel is age-restricted.
+        last_message_id:
+            The ID of the last message sent in this channel.
+        bitrate:
+            The bit per second of the voice channel.
+        user_limit:
+            The user limit of the voice channel.
+        rate_limit_per_user:
+            The channel slowmode in seconds. This ranges from 0-21600.
+        recipients:
+            The recipients of the DM.
+        icon:
+            The icon hash of the Group DM.
+        owner_id:
+            The ID of the Group DM or a thread.
+        applicaiton_id:
+            The app ID of the Group DM if it's created by a bot.
+        managed:
+            Whether the channel is managed.
+        parent_id:
+            For guild channels, it's the parent category ID.
+            For threads, it's the text channel ID.
+        last_pin_timestamp:
+            When the last pinned message was pinned.
+        rtc_region:
+            ID of the region of the voice channel. Automatic when set to None.
+        video_quality_mode:
+            The camera video quality mode of the voice channel.
+            `1` when not present.
+        message_count:
+            Number of messages in a thread.
 
-                       **Notes**: Can be inaccurate if the thread was created
-                       before July 1st, 2022.
-        member_count: Approximate count of users in a thread.
+            **Notes**: Can be inaccurate if the thread was created before
+            July 1st, 2022.
+        member_count:
+            Approximate count of users in a thread.
 
-                      **Notes**: stop counting at 50.
-        thread_metadata: Thread specific fields.
-        member: Thread member object for the current user,
-                if they have joined the thread.
-        default_auto_archive_duration: Default duration for threads to be
-                                       auto archived (in minutes).
+            **Notes**: stop counting at 50.
+        thread_metadata:
+            Thread specific fields.
+        member:
+            Thread member object for the current user, if they have joined the
+            thread.
+        default_auto_archive_duration:
+            Default duration for threads to be auto archived (in minutes).
 
-                                       **Notes**: Can be set to 60, 1440,
-                                       4320, 10080.
-        permissions: Computed permissions for the invoking user in the channel,
-                     including overwrites.
-        flags: Channel flags combined as a bitfield.
-        total_message_sent: Number of messages ever sent in a thread.
+            **Notes**: Can be set to 60, 1440, 4320, 10080.
+        permissions:
+            Computed permissions for the invoking user in the channel, including
+            overwrites.
+        flags:
+            Channel flags combined as a bitfield.
+        total_message_sent:
+            Number of messages ever sent in a thread.
 
-                            **Notes**: Unlike `message_count`, the value won't
-                            decrease when a message is deleted.
-        available_tags: The set of tags that can be used in a `GUILD_FORUM`
-                        channel.
-        applied_tags: The IDs of the set of tags that have been applied
-                      to a thread in a `GUILD_FORUM` channel.
-        default_reaction_emoji: The emoji to show in the add reaction button
-                                on a thread in a `GUILD_FORUM` channel.
-        default_thread_rate_limit_per_user: The initial `rate_limit_per_user`
-                                            to set on newly created threads
-                                            in a channel.
-        default_sort_order: The default sort order type used to order posts in
-                            `GUILD_FORUM` channel.
-        default_forum_layout: The default forum layout view used to display
-                              posts in `GUILD_FORUM` channel.
+            **Notes**: Unlike `message_count`, the value won't
+            decrease when a message is deleted.
+        available_tags:
+            The set of tags that can be used in a `GUILD_FORUM` channel.
+        applied_tags:
+            The IDs of the set of tags that have been applied to a thread in a
+            `GUILD_FORUM` channel.
+        default_reaction_emoji:
+            The emoji to show in the add reaction button on a thread in a
+            `GUILD_FORUM` channel.
+        default_thread_rate_limit_per_user:
+            The initial `rate_limit_per_user` to set on newly created threads
+            in a channel.
+        default_sort_order:
+            The default sort order type used to order posts in `GUILD_FORUM`
+            channel.
+        default_forum_layout:
+            The default forum layout view used to display posts in `GUILD_FORUM`
+            channel.
     """
 
     id: Snowflake
