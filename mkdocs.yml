@@ -29,6 +29,10 @@ theme:
   icon:
     repo: fontawesome/brands/github
   logo: assets/zcord_original.png
+  favicon: assets/zcord_original.png
+
+extra:
+  homepage: https://zcord.readthedocs.io
 
 plugins:
   - search:
