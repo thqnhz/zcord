@@ -1184,7 +1184,7 @@ wheels = [
 
 [[package]]
 name = "zcord"
-version = "2026.0.1.dev8"
+version = "2026.0.2.dev1"
 source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },

@@ -18,8 +18,6 @@ class Bot:
         self._token = token
         self._http: HTTPClient | None = None
 
-        self.send_message = self.http.send_message
-
     @property
     def http(self) -> HTTPClient:
         if self._http is None:
