@@ -189,10 +189,6 @@ class Message:
         mention_roles = [
             Snowflake(mr) for mr in payload.get("mention_roles", [])
         ]
-        if len(mention_roles) != 0:
-            mention_roles: list[Snowflake] = [
-                Snowflake(r) for r in mention_roles
-            ]
         mention_channels: list = payload.get("mention_channels", MISSING)
         attachments: list = payload.get("attachments", [])
         embeds: list = payload.get("embeds", [])
