@@ -284,3 +284,6 @@ class Channel:
             default_sort_order=default_sort_order,
             default_forum_layout=default_forum_layout,
         )
+
+    def __int__(self):
+        return self.id
