@@ -8,7 +8,7 @@ from zcord.utils import MISSING
 from .snowflake import Snowflake
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class RoleTags:
     type null = Literal[True]
     bot_id: Snowflake | MISSING
@@ -19,13 +19,11 @@ class RoleTags:
     guild_connections: null | MISSING
 
     @classmethod
-    def _from_payload(cls, payload: dict) -> Self:
-        bot_id = payload.get("bot_id", MISSING)
-        if bot_id is not MISSING:
-            bot_id = Snowflake(bot_id)
-        integration_id = payload.get("integration_id", MISSING)
-        if integration_id is not MISSING:
-            integration_id = Snowflake(integration_id)
+    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
+        if payload is MISSING:
+            return MISSING
+        bot_id = Snowflake(payload.get("bot_id", MISSING))
+        integration_id = Snowflake(payload.get("integration_id", MISSING))
         premium_subscriber = payload.get("premium_subscriber", MISSING)
         subscription_listing_id = payload.get(
             "subscription_listing_id", MISSING
@@ -44,7 +42,7 @@ class RoleTags:
         )
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class RoleColors:
     """
     Contain the colors of the role.
@@ -68,7 +66,9 @@ class RoleColors:
         return cls(primary_color=0, secondary_color=None, tertiary_color=None)
 
     @classmethod
-    def _from_payload(cls, payload: dict) -> Self:
+    def _from_payload(cls, payload: dict | None) -> Self:
+        if payload is None:
+            return cls.default()
         return cls(
             primary_color=payload.get("primary_color", 0),
             secondary_color=payload.get("secondary_color"),
@@ -76,7 +76,7 @@ class RoleColors:
         )
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class Role:
     """
     Represent a Discord role.
@@ -126,11 +126,7 @@ class Role:
     def _from_payload(cls, payload: dict) -> Self:
         id = Snowflake(payload.get("id", -1))
         name: str = payload.get("name", "")
-        colors = payload.get("colors")
-        if colors is not None and colors is not MISSING:
-            colors = RoleColors._from_payload(colors)
-        else:
-            colors = RoleColors.default()
+        colors = RoleColors._from_payload(payload.get("colors"))
         hoist: bool = payload.get("hoist", False)
         icon: str = payload.get("icon", MISSING)
         unicode_emoji: str | None = payload.get("unicode_emoji", MISSING)

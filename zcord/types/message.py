@@ -7,6 +7,7 @@ from typing import Any, Self
 
 from zcord.utils import MISSING
 
+from .channel import Channel
 from .snowflake import Snowflake
 from .user import User
 
@@ -55,7 +56,7 @@ class MessageType(IntEnum):
     POLL_RESULT = 46
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class Message:
     """Represent a Discord message.
 
@@ -160,7 +161,7 @@ class Message:
     message_snapshots: Any | MISSING
     referenced_message: Message | None | MISSING
     interaction_metadata: Any | MISSING
-    thread: Any | MISSING  # NOTE: Channel
+    thread: Channel | MISSING
     components: list
     sticker_items: Any | MISSING
     position: int | MISSING
@@ -184,10 +185,10 @@ class Message:
             edited_timestamp = None
         tts: bool = payload.get("tts", False)
         mention_everyone: bool = payload.get("mention_everyone", False)
-        mentions: list = payload.get("mentions", [])
-        if len(mentions) != 0:
-            mentions: list[User] = [User._from_payload(u) for u in mentions]
-        mention_roles: list = payload.get("mention_roles", [])
+        mentions = [User._from_payload(m) for m in payload.get("mentions", [])]
+        mention_roles = [
+            Snowflake(mr) for mr in payload.get("mention_roles", [])
+        ]
         if len(mention_roles) != 0:
             mention_roles: list[Snowflake] = [
                 Snowflake(r) for r in mention_roles
@@ -211,7 +212,7 @@ class Message:
         message_snapshots = payload.get("message_snapshots", MISSING)
         referenced_message = payload.get("referenced_message", MISSING)
         interaction_metadata = payload.get("interaction_metadata", MISSING)
-        thread = payload.get("thread", MISSING)
+        thread = Channel._from_payload(payload.get("thread", MISSING))
         components: list = payload.get("components", MISSING)
         sticker_items: list = payload.get("sticker_items", MISSING)
         position: int = payload.get("position", MISSING)
