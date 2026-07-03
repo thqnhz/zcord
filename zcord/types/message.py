@@ -162,7 +162,7 @@ class Message:
     referenced_message: Message | None | MISSING
     interaction_metadata: Any | MISSING
     thread: Channel | MISSING
-    components: list
+    components: list | MISSING
     sticker_items: Any | MISSING
     position: int | MISSING
     role_subscription_data: Any | MISSING
