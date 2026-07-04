@@ -11,34 +11,21 @@ from .snowflake import Snowflake
 @dataclass(frozen=True, slots=True)
 class RoleTags:
     type null = Literal[True]
-    bot_id: Snowflake | MISSING
-    integration_id: Snowflake | MISSING
-    premium_subscriber: null | MISSING
-    subscription_listing_id: Snowflake | MISSING
-    available_for_purchase: null | MISSING
-    guild_connections: null | MISSING
+    bot_id: Snowflake | MISSING = MISSING
+    integration_id: Snowflake | MISSING = MISSING
+    premium_subscriber: null | MISSING = MISSING
+    subscription_listing_id: Snowflake | MISSING = MISSING
+    available_for_purchase: null | MISSING = MISSING
+    guild_connections: null | MISSING = MISSING
 
     @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        if payload is MISSING:
-            return MISSING
-        bot_id = Snowflake(payload.get("bot_id", MISSING))
-        integration_id = Snowflake(payload.get("integration_id", MISSING))
-        premium_subscriber = payload.get("premium_subscriber", MISSING)
-        subscription_listing_id = payload.get(
-            "subscription_listing_id", MISSING
-        )
-        if subscription_listing_id is not MISSING:
-            subscription_listing_id = Snowflake(subscription_listing_id)
-        available_for_purchase = payload.get("available_for_purchase", MISSING)
-        guild_connections = payload.get("guild_connections", MISSING)
-        return cls(
-            bot_id=bot_id,
-            integration_id=integration_id,
-            premium_subscriber=premium_subscriber,
-            subscription_listing_id=subscription_listing_id,
-            available_for_purchase=available_for_purchase,
-            guild_connections=guild_connections,
+    def _from_payload(cls, payload: dict) -> Self | MISSING:
+        return from_payload(
+            cls,
+            payload,
+            bot_id=Snowflake,
+            integration_id=Snowflake,
+            subscription_listing_id=Snowflake,
         )
 
 
