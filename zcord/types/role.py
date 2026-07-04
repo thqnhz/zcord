@@ -100,14 +100,14 @@ class Role:
     name: str
     colors: RoleColors
     hoist: bool
-    icon: str | None | MISSING
-    unicode_emoji: str | None | MISSING
     position: int
     permissions: str
     managed: bool
     mentionable: bool
-    tags: RoleTags | MISSING
     flags: int
+    tags: RoleTags | MISSING = MISSING
+    icon: str | None | MISSING = MISSING
+    unicode_emoji: str | None | MISSING = MISSING
 
     @classmethod
     def _from_payload(cls, payload: dict) -> Self:
