@@ -5,7 +5,7 @@ from datetime import datetime
 from enum import IntEnum
 from typing import Any, Self
 
-from zcord.utils import MISSING
+from zcord.utils import MISSING, from_payload
 
 from .channel import Channel
 from .snowflake import Snowflake
@@ -141,116 +141,51 @@ class Message:
     author: User
     content: str
     timestamp: datetime
-    edited_timestamp: datetime | None
     tts: bool
     mention_everyone: bool
     mentions: list[User]
     mention_roles: list[Snowflake]
-    mention_channels: list | MISSING
     attachments: list
     embeds: list
-    reactions: list | MISSING
     pinned: bool
-    webhook_id: Snowflake | MISSING
     type: MessageType
-    activity: Any | MISSING
-    application: Any | MISSING
-    application_id: Snowflake | MISSING
-    flags: int | MISSING
-    message_reference: Any | MISSING
-    message_snapshots: Any | MISSING
-    referenced_message: Message | None | MISSING
-    interaction_metadata: Any | MISSING
-    thread: Channel | MISSING
-    components: list | MISSING
-    sticker_items: Any | MISSING
-    position: int | MISSING
-    role_subscription_data: Any | MISSING
-    resolved: Any | MISSING
-    poll: Any | MISSING
-    call: Any | MISSING
-    shared_client_theme: Any | MISSING
+    edited_timestamp: datetime | None = None
+    mention_channels: list | MISSING = MISSING
+    reactions: list | MISSING = MISSING
+    webhook_id: Snowflake | MISSING = MISSING
+    activity: Any | MISSING = MISSING
+    application: Any | MISSING = MISSING
+    application_id: Snowflake | MISSING = MISSING
+    flags: int | MISSING = MISSING
+    message_reference: Any | MISSING = MISSING
+    message_snapshots: Any | MISSING = MISSING
+    referenced_message: Message | None | MISSING = MISSING
+    interaction_metadata: Any | MISSING = MISSING
+    thread: Channel | MISSING = MISSING
+    components: list | MISSING = MISSING
+    sticker_items: Any | MISSING = MISSING
+    position: int | MISSING = MISSING
+    role_subscription_data: Any | MISSING = MISSING
+    resolved: Any | MISSING = MISSING
+    poll: Any | MISSING = MISSING
+    call: Any | MISSING = MISSING
+    shared_client_theme: Any | MISSING = MISSING
 
     @classmethod
     def _from_payload(cls, payload: dict) -> Self:
-        id = Snowflake(payload.get("id", -1))
-        channel_id = Snowflake(payload.get("channel_id", -1))
-        author = User._from_payload(payload.get("author", {}))
-        content: str = payload.get("content", "")
-        timestamp = datetime.fromisoformat(str(payload.get("timestamp")))
-        e_t = payload.get("edited_timestamp")
-        if e_t is not None:
-            edited_timestamp = datetime.fromisoformat(str(e_t))
-        else:
-            edited_timestamp = None
-        tts: bool = payload.get("tts", False)
-        mention_everyone: bool = payload.get("mention_everyone", False)
-        mentions = [User._from_payload(m) for m in payload.get("mentions", [])]
-        mention_roles = [
-            Snowflake(mr) for mr in payload.get("mention_roles", [])
-        ]
-        mention_channels: list = payload.get("mention_channels", MISSING)
-        attachments: list = payload.get("attachments", [])
-        embeds: list = payload.get("embeds", [])
-        reactions: list = payload.get("reactions", MISSING)
-        pinned: bool = payload.get("pinned", False)
-        webhook_id = payload.get("webhook_id", MISSING)
-        if webhook_id is not MISSING:
-            webhook_id = Snowflake(webhook_id)
-        type = MessageType(payload.get("type", 0))
-        activity = payload.get("activity", MISSING)
-        application = payload.get("application", MISSING)
-        application_id: int = payload.get("application_id", MISSING)
-        if application_id is not MISSING:
-            application_id = Snowflake(application_id)
-        flags: int = payload.get("flags", MISSING)
-        message_reference = payload.get("message_reference", MISSING)
-        message_snapshots = payload.get("message_snapshots", MISSING)
-        referenced_message = payload.get("referenced_message", MISSING)
-        interaction_metadata = payload.get("interaction_metadata", MISSING)
-        thread = Channel._from_payload(payload.get("thread", MISSING))
-        components: list = payload.get("components", MISSING)
-        sticker_items: list = payload.get("sticker_items", MISSING)
-        position: int = payload.get("position", MISSING)
-        role_subscription_data = payload.get("role_subscription_data", MISSING)
-        resolved = payload.get("resolved", MISSING)
-        poll = payload.get("poll", MISSING)
-        call = payload.get("call", MISSING)
-        shared_client_theme = payload.get("shared_client_theme", MISSING)
-
-        return cls(
-            id=id,
-            channel_id=channel_id,
-            author=author,
-            content=content,
-            timestamp=timestamp,
-            edited_timestamp=edited_timestamp,
-            tts=tts,
-            mention_everyone=mention_everyone,
-            mentions=mentions,
-            mention_roles=mention_roles,
-            mention_channels=mention_channels,
-            attachments=attachments,
-            embeds=embeds,
-            reactions=reactions,
-            pinned=pinned,
-            webhook_id=webhook_id,
-            type=type,
-            activity=activity,
-            application=application,
-            application_id=application_id,
-            flags=flags,
-            message_reference=message_reference,
-            message_snapshots=message_snapshots,
-            referenced_message=referenced_message,
-            interaction_metadata=interaction_metadata,
-            thread=thread,
-            components=components,
-            sticker_items=sticker_items,
-            position=position,
-            role_subscription_data=role_subscription_data,
-            poll=poll,
-            resolved=resolved,
-            call=call,
-            shared_client_theme=shared_client_theme,
+        return from_payload(
+            cls,
+            payload,
+            id=Snowflake,
+            channel_id=Snowflake,
+            author=User._from_payload,
+            timestamp=datetime.fromisoformat,
+            edited_timestamp=datetime.fromisoformat,
+            mentions=User._from_payload,
+            mention_roles=Snowflake,
+            mention_channels=Channel._from_payload,
+            webhook_id=Snowflake,
+            type=MessageType,
+            application_id=Snowflake,
+            thread=Channel._from_payload,
         )

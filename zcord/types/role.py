@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal, Self
 
-from zcord.utils import MISSING
+from zcord.utils import MISSING, from_payload
 
 from .snowflake import Snowflake
 
@@ -124,31 +124,10 @@ class Role:
 
     @classmethod
     def _from_payload(cls, payload: dict) -> Self:
-        id = Snowflake(payload.get("id", -1))
-        name: str = payload.get("name", "")
-        colors = RoleColors._from_payload(payload.get("colors"))
-        hoist: bool = payload.get("hoist", False)
-        icon: str = payload.get("icon", MISSING)
-        unicode_emoji: str | None = payload.get("unicode_emoji", MISSING)
-        position: int = payload.get("position", -1)
-        permissions: str = payload.get("permissions", "")
-        managed: bool = payload.get("managed", False)
-        mentionable: bool = payload.get("mentionable", False)
-        tags = payload.get("tags", MISSING)
-        if tags is not MISSING:
-            tags = RoleTags._from_payload(tags)
-        flags: int = payload.get("flags", -1)
-        return cls(
-            id=id,
-            name=name,
-            colors=colors,
-            hoist=hoist,
-            icon=icon,
-            unicode_emoji=unicode_emoji,
-            position=position,
-            permissions=permissions,
-            managed=managed,
-            mentionable=mentionable,
-            tags=tags,
-            flags=flags,
+        return from_payload(
+            cls,
+            payload,
+            id=Snowflake,
+            colors=RoleColors._from_payload,
+            tags=RoleTags._from_payload,
         )

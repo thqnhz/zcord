@@ -5,7 +5,7 @@ from datetime import datetime
 from enum import IntEnum
 from typing import Any, Self
 
-from zcord.utils import MISSING
+from zcord.utils import MISSING, from_payload
 
 from .snowflake import Snowflake
 from .user import User
@@ -158,131 +158,55 @@ class Channel:
 
     id: Snowflake
     type: ChannelType
-    guild_id: Snowflake | MISSING
-    position: int | MISSING
-    permission_overwrites: list | MISSING
-    name: str | None | MISSING
-    topic: str | None | MISSING
-    nsfw: bool | MISSING
-    last_message_id: Snowflake | None | MISSING
-    bitrate: int | MISSING
-    user_limit: int | MISSING
-    rate_limit_per_user: int | MISSING
-    recipients: list[User] | MISSING
-    icon: str | None | MISSING
-    owner_id: Snowflake | MISSING
-    application_id: Snowflake | MISSING
-    managed: bool | MISSING
-    parent_id: Snowflake | None | MISSING
-    last_pin_timestamp: datetime | None | MISSING
-    rtc_region: str | None | MISSING
-    video_quality_mode: int | MISSING
-    message_count: int | MISSING
-    member_count: int | MISSING
-    thread_metadata: Any | MISSING
-    member: Any | MISSING
-    default_auto_archive_duration: int | MISSING
-    permissions: str | MISSING
-    flags: int | MISSING
-    total_message_sent: int | MISSING
-    available_tags: list | MISSING
-    applied_tags: list[Snowflake] | MISSING
-    default_reaction_emoji: Any | None | MISSING
-    default_thread_rate_limit_per_user: int | MISSING
-    default_sort_order: int | None | MISSING
-    default_forum_layout: int | MISSING
+    guild_id: Snowflake | MISSING = MISSING
+    position: int | MISSING = MISSING
+    permission_overwrites: list | MISSING = MISSING
+    name: str | None | MISSING = MISSING
+    topic: str | None | MISSING = MISSING
+    nsfw: bool | MISSING = MISSING
+    last_message_id: Snowflake | None | MISSING = MISSING
+    bitrate: int | MISSING = MISSING
+    user_limit: int | MISSING = MISSING
+    rate_limit_per_user: int | MISSING = MISSING
+    recipients: list[User] | MISSING = MISSING
+    icon: str | None | MISSING = MISSING
+    owner_id: Snowflake | MISSING = MISSING
+    application_id: Snowflake | MISSING = MISSING
+    managed: bool | MISSING = MISSING
+    parent_id: Snowflake | None | MISSING = MISSING
+    last_pin_timestamp: datetime | None | MISSING = MISSING
+    rtc_region: str | None | MISSING = MISSING
+    video_quality_mode: int | MISSING = MISSING
+    message_count: int | MISSING = MISSING
+    member_count: int | MISSING = MISSING
+    thread_metadata: Any | MISSING = MISSING
+    member: Any | MISSING = MISSING
+    default_auto_archive_duration: int | MISSING = MISSING
+    permissions: str | MISSING = MISSING
+    flags: int | MISSING = MISSING
+    total_message_sent: int | MISSING = MISSING
+    available_tags: list | MISSING = MISSING
+    applied_tags: list[Snowflake] | MISSING = MISSING
+    default_reaction_emoji: Any | None | MISSING = MISSING
+    default_thread_rate_limit_per_user: int | MISSING = MISSING
+    default_sort_order: int | None | MISSING = MISSING
+    default_forum_layout: int | MISSING = MISSING
 
     @classmethod
     def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        if payload is MISSING:
-            return MISSING
-        id = Snowflake(payload.get("id", -1))
-        type = ChannelType(payload.get("type"))
-        guild_id = Snowflake(payload.get("guild_id", -1))
-        position: int = payload.get("position", MISSING)
-        permission_overwrites: list = payload.get(
-            "permission_overwrites", MISSING
-        )
-        name: str = payload.get("name", MISSING)
-        topic: str = payload.get("topic", MISSING)
-        nsfw: bool = payload.get("nsfw", MISSING)
-        last_message_id: int | None = payload.get("last_message_id", MISSING)
-        if last_message_id is not MISSING and last_message_id is not None:
-            last_message_id = Snowflake(last_message_id)
-        bitrate: int = payload.get("bitrate", MISSING)
-        user_limit: int = payload.get("user_limit", MISSING)
-        rate_limit_per_user: int = payload.get("rate_limit_per_user", MISSING)
-        recipients: list = payload.get("recipients", MISSING)
-        if recipients is not MISSING:
-            recipients: list[User] = [User._from_payload(r) for r in recipients]
-        icon: str | None = payload.get("icon", MISSING)
-        owner_id = Snowflake(payload.get("owner_id", MISSING))
-        application_id = Snowflake(payload.get("application_id", MISSING))
-        managed: bool = payload.get("managed", MISSING)
-        parent_id = Snowflake(payload.get("parent_id", MISSING))
-        last_pin_timestamp = payload.get("last_pin_timestamp", MISSING)
-        if last_pin_timestamp is not None and last_pin_timestamp is not MISSING:
-            last_pin_timestamp = datetime.fromisoformat(last_pin_timestamp)
-        rtc_region: str | None = payload.get("rtc_region", MISSING)
-        video_quality_mode: int = payload.get("video_quality_mode", 1)
-        message_count: int = payload.get("message_count", MISSING)
-        member_count: int = payload.get("member_count", MISSING)
-        thread_metadata = payload.get("thread_metadata", MISSING)
-        member = payload.get("member", MISSING)
-        default_auto_archive_duration: int = payload.get(
-            "default_auto_archive_duration", MISSING
-        )
-        permissions: str = payload.get("permissions", MISSING)
-        flags: int = payload.get("flags", MISSING)
-        total_message_sent: int = payload.get("total_message_sent", MISSING)
-        available_tags = payload.get("available_tags", MISSING)
-        applied_tags = [
-            Snowflake(at) for at in payload.get("applied_tags", MISSING)
-        ]
-        default_reaction_emoji = payload.get("default_reaction_emoji", MISSING)
-        default_thread_rate_limit_per_user: int = payload.get(
-            "default_thread_rate_limit_per_user", MISSING
-        )
-        default_sort_order: int | None = payload.get(
-            "default_sort_order", MISSING
-        )
-        default_forum_layout: int = payload.get("default_forum_layout", MISSING)
-        return cls(
-            id=id,
-            type=type,
-            guild_id=guild_id,
-            position=position,
-            permission_overwrites=permission_overwrites,
-            name=name,
-            topic=topic,
-            nsfw=nsfw,
-            last_message_id=last_message_id,
-            bitrate=bitrate,
-            user_limit=user_limit,
-            rate_limit_per_user=rate_limit_per_user,
-            recipients=recipients,
-            icon=icon,
-            owner_id=owner_id,
-            application_id=application_id,
-            managed=managed,
-            parent_id=parent_id,
-            last_pin_timestamp=last_pin_timestamp,
-            rtc_region=rtc_region,
-            video_quality_mode=video_quality_mode,
-            message_count=message_count,
-            member_count=member_count,
-            thread_metadata=thread_metadata,
-            member=member,
-            default_auto_archive_duration=default_auto_archive_duration,
-            permissions=permissions,
-            flags=flags,
-            total_message_sent=total_message_sent,
-            available_tags=available_tags,
-            applied_tags=applied_tags,
-            default_reaction_emoji=default_reaction_emoji,
-            default_thread_rate_limit_per_user=default_thread_rate_limit_per_user,
-            default_sort_order=default_sort_order,
-            default_forum_layout=default_forum_layout,
+        return from_payload(
+            cls,
+            payload,
+            id=Snowflake,
+            type=ChannelType,
+            guild_id=Snowflake,
+            last_message_id=Snowflake,
+            recipients=User._from_payload,
+            owner_id=Snowflake,
+            application_id=Snowflake,
+            parent_id=Snowflake,
+            last_pin_timestamp=datetime.fromisoformat,
+            applied_tags=Snowflake,
         )
 
     def __int__(self):
