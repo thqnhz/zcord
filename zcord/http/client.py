@@ -1,9 +1,14 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import aiohttp
 import orjson
 
-from zcord.types import Channel, Message, Snowflake
+from zcord.types import Message
+
+if TYPE_CHECKING:
+    from zcord.types import Channel, Snowflake
 
 
 class HTTPClient:
