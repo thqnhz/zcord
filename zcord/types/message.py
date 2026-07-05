@@ -5,11 +5,10 @@ from datetime import datetime
 from enum import IntEnum
 from typing import Any, Self
 
+from zcord.types.channel import Channel
+from zcord.types.snowflake import Snowflake
+from zcord.types.user import User
 from zcord.utils import MISSING, from_payload
-
-from .channel import Channel
-from .snowflake import Snowflake
-from .user import User
 
 
 class MessageType(IntEnum):

@@ -1,14 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 import aiohttp
 import orjson
-
-from zcord.types import Message
-
-if TYPE_CHECKING:
-    from zcord.types import Channel, Snowflake
 
 
 class HTTPClient:
@@ -38,16 +31,3 @@ class HTTPClient:
             method, self.BASE_URL + endpoint, json=json
         ) as resp:
             return orjson.loads(await resp.read())
-
-    async def send_message(
-        self, channel_id: int | Snowflake | Channel, *, content: str
-    ) -> Message:
-        """
-        Send a message to a channel.
-        """
-        resp = await self.request(
-            "POST",
-            f"/channels/{int(channel_id)}/messages",
-            json={"content": content},
-        )
-        return Message._from_payload(dict(resp))
