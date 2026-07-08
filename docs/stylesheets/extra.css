@@ -5,9 +5,17 @@
     --text: #cdd6f4;
 }
 
+html {
+    font-size: 28px;
+}
+
 body {
     /*background: var(--base);*/
     color: var(--text);
+}
+
+.md-nav__list {
+    margin-left: -1.25rem;
 }
 
 .doc-symbol-parameter::after,
