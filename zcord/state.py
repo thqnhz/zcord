@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from zcord.http.client import HTTPClient
 from zcord.http.rest import REST
-from zcord.types import Channel, Message, Snowflake, User
+from zcord.types import Channel, Guild, Message, Snowflake, User
+from zcord.utils import MISSING
 
 
 class ConnectionState:
@@ -17,3 +18,13 @@ class ConnectionState:
         self, channel_id: int | Snowflake, **kwargs
     ) -> Message:
         return await REST.send_message(self._http, channel_id, **kwargs)
+
+    async def fetch_guild(
+        self,
+        guild_id: int | Snowflake,
+        *,
+        with_counts: bool | MISSING = MISSING,
+    ) -> Guild:
+        return await REST.fetch_guild(
+            self._http, guild_id, with_counts=with_counts
+        )

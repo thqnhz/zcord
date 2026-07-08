@@ -20,7 +20,11 @@ def from_payload(cls, payload: dict | MISSING, **transforms) -> Any:
     kwargs = {}
     for f in dataclasses.fields(cls):
         value = payload.get(f.name, f.default)
-        if f.name in transforms and value is not f.default:
+        if (
+            f.name in transforms
+            and value is not None
+            and value is not f.default
+        ):
             if isinstance(value, list):
                 li = []
                 for v in value:

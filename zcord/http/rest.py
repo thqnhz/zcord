@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from zcord.http import HTTPClient
-from zcord.types import Channel, Message, Snowflake
+from zcord.types import Channel, Guild, Message, Snowflake
+from zcord.utils import MISSING
 
 
 class REST:
@@ -18,3 +19,18 @@ class REST:
             json={"content": kwargs["content"]},
         )
         return Message._from_payload(dict(resp))
+
+    @staticmethod
+    async def fetch_guild(
+        http: HTTPClient,
+        guild_id: int | Snowflake,
+        *,
+        with_counts: bool | MISSING = MISSING,
+    ) -> Guild:
+        """
+        Fetch a guild with guild ID.
+        """
+        endpoint = f"/guilds/{guild_id}"
+        # TODO: with_counts handling
+        resp = await http.request("GET", endpoint)
+        return Guild._from_payload(dict(resp))

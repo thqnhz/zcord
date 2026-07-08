@@ -6,6 +6,7 @@ from .bot import Bot
 from .types import (
     Channel,
     ChannelType,
+    Guild,
     Message,
     MessageType,
     Role,
@@ -22,6 +23,7 @@ __all__ = [
     "Bot",
     "Channel",
     "ChannelType",
+    "Guild",
     "Message",
     "MessageType",
     "Role",
