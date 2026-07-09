@@ -5,6 +5,19 @@ from zcord.types import Channel, Guild, Message, Snowflake
 from zcord.utils import MISSING
 
 
+def _build_query(**params) -> str:
+    filtered = {}
+    for k, v in params.items():
+        if v is MISSING:
+            continue
+        if isinstance(v, bool):
+            v = str(v).lower()
+        filtered[k] = v
+    if not filtered:
+        return ""
+    return "?" + "&".join(f"{k}={v}" for k, v in filtered.items())
+
+
 class REST:
     @staticmethod
     async def send_message(
@@ -30,7 +43,6 @@ class REST:
         """
         Fetch a guild with guild ID.
         """
-        endpoint = f"/guilds/{guild_id}"
-        # TODO: with_counts handling
+        endpoint = f"/guilds/{guild_id}{_build_query(with_counts=with_counts)}"
         resp = await http.request("GET", endpoint)
         return Guild._from_payload(dict(resp))
