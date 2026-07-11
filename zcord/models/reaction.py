@@ -57,4 +57,6 @@ class Reaction:
 
     @classmethod
     def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(cls, payload, count_details=ReactionCountDetails)
+        return from_payload(
+            cls, payload, count_details=ReactionCountDetails._from_payload
+        )
