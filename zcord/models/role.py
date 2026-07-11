@@ -10,6 +10,10 @@ from zcord.utils import from_payload
 
 @dataclass(frozen=True, slots=True)
 class RoleTags:
+    """
+    Role tags.
+    """
+
     type null = Literal[True]
     bot_id: Snowflake | MISSING = MISSING
     integration_id: Snowflake | MISSING = MISSING
@@ -40,9 +44,9 @@ class RoleColors:
         tertiary_color: The tertiary color of the role (holographic style).
     """
 
-    primary_color: int
-    secondary_color: int | None
-    tertiary_color: int | None
+    primary_color: int = 0
+    secondary_color: int | None = None
+    tertiary_color: int | None = None
 
     @classmethod
     def default(cls) -> Self:
@@ -50,7 +54,7 @@ class RoleColors:
         Non color role has the default `primary_color` of `0` and `None`
         for other fields.
         """
-        return cls(primary_color=0, secondary_color=None, tertiary_color=None)
+        return cls()
 
     @classmethod
     def _from_payload(cls, payload: dict | None) -> Self:

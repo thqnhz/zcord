@@ -18,6 +18,7 @@ from .models import (
     Message,
     Role,
     RoleColors,
+    RoleTags,
     Snowflake,
     User,
 )
@@ -37,6 +38,7 @@ __all__ = [
     "MessageType",
     "Role",
     "RoleColors",
+    "RoleTags",
     "Snowflake",
     "User",
     "VerificationLevel",
