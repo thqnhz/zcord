@@ -18,4 +18,4 @@ uv add zcord
 
 ## Usage
 
-See the [API documentation](api).
+See the [API documentation](api.md).
