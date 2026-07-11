@@ -28,3 +28,21 @@ class ConnectionState:
         return await REST.fetch_guild(
             self._http, guild_id, with_counts=with_counts
         )
+
+    async def fetch_channel_messages(
+        self,
+        channel_id: int | Snowflake,
+        *,
+        around: int | Snowflake | MISSING = MISSING,
+        before: int | Snowflake | MISSING = MISSING,
+        after: int | Snowflake | MISSING = MISSING,
+        limit: int = 50,
+    ) -> list[Message]:
+        return await REST.fetch_channel_messages(
+            self._http,
+            channel_id,
+            around=around,
+            before=before,
+            after=after,
+            limit=limit,
+        )
