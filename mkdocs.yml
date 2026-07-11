@@ -38,6 +38,10 @@ extra:
   homepage: https://zcord.readthedocs.io
 
 plugins:
+  - document-dates:
+      position: top
+      type: date
+      show_author: false
   - search:
       enabled: true
       lang: en

@@ -6,7 +6,9 @@ from typing import Any, Self
 
 from zcord.enums import MessageType
 from zcord.missing import MISSING
+from zcord.models.attachment import Attachment
 from zcord.models.channel import Channel
+from zcord.models.embed import Embed
 from zcord.models.snowflake import Snowflake
 from zcord.models.user import User
 from zcord.utils import from_payload
@@ -101,12 +103,12 @@ class Message:
     mention_everyone: bool
     mentions: list[User]
     mention_roles: list[Snowflake]
-    attachments: list
-    embeds: list
+    attachments: list[Attachment]
+    embeds: list[Embed]
     pinned: bool
     type: MessageType
     edited_timestamp: datetime | None = None
-    mention_channels: list | MISSING = MISSING
+    mention_channels: list[Channel] | MISSING = MISSING
     reactions: list | MISSING = MISSING
     webhook_id: Snowflake | MISSING = MISSING
     activity: Any | MISSING = MISSING
@@ -138,6 +140,8 @@ class Message:
             timestamp=datetime.fromisoformat,
             edited_timestamp=datetime.fromisoformat,
             mentions=User._from_payload,
+            attachments=Attachment._from_payload,
+            embeds=Embed._from_payload,
             mention_roles=Snowflake,
             mention_channels=Channel._from_payload,
             webhook_id=Snowflake,
