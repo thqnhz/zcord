@@ -7,6 +7,9 @@ repo_url: https://github.com/thqnhz/zcord
 copyright: Copyright &copy; 2026 ZyubyL
 
 theme:
+  font:
+    text: Inter
+    code: Jetbrains Mono
   name: materialx
   palette:
     scheme: slate

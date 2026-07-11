@@ -1,8 +1,44 @@
 :root {
-    /*--crust: #11111b;
+    --crust: #11111b;
     --mantle: #181825;
-    --base: #1e1e2e;*/
+    --base: #1e1e2e;
+    --blue: #89b4fa;
+    --peach: #fab387;
+    --sapphire: #74c7ec;
+    --green: #a6e3a1;
+    --mauve: #cba6f7;
     --text: #cdd6f4;
+}
+
+[data-md-color-scheme="slate"] {
+    --md-primary-fg-color: var(--blue);
+    --md-default-bg-color: var(--base);
+    --mx-topbar-bg: var(--mantle);
+    --mx-topbar-fg: var(--text);
+    --doc-symbol-attribute-fg-color: var(--peach);
+    --doc-symbol-attribute-bg-color: color-mix(
+        in oklab,
+        var(--peach) 20%,
+        var(--base)
+    );
+    --doc-symbol-class-fg-color: var(--sapphire);
+    --doc-symbol-class-bg-color: color-mix(
+        in oklab,
+        var(--sapphire) 20%,
+        var(--base)
+    );
+    --doc-symbol-module-fg-color: var(--green);
+    --doc-symbol-module-bg-color: color-mix(
+        in oklab,
+        var(--green) 20%,
+        var(--base)
+    );
+    --doc-symbol-method-fg-color: var(--mauve);
+    --doc-symbol-method-bg-color: color-mix(
+        in oklab,
+        var(--mauve) 20%,
+        var(--base)
+    );
 }
 
 html {
@@ -10,12 +46,7 @@ html {
 }
 
 body {
-    /*background: var(--base);*/
     color: var(--text);
-}
-
-.md-nav__list {
-    margin-left: -1.25rem;
 }
 
 .doc-symbol-parameter::after,
