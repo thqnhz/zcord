@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from zcord.http import HTTPClient
-from zcord.types import Channel, Guild, Message, Snowflake
+from zcord.models import Channel, Guild, Message, Snowflake
 from zcord.utils import MISSING
 
 

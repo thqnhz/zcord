@@ -3,8 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Self
 
-from zcord.types.snowflake import Snowflake
-from zcord.utils import MISSING, from_payload
+from zcord.missing import MISSING
+from zcord.models.snowflake import Snowflake
+from zcord.utils import from_payload
 
 
 @dataclass(frozen=True, slots=True)

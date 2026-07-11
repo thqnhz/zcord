@@ -3,15 +3,7 @@ from __future__ import annotations
 import dataclasses
 from typing import Any
 
-from typing_extensions import Sentinel
-
-MISSING = Sentinel("MISSING")
-"""
-A special marker indicating that a value was not provided.
-
-Notes:
-    Unlike [`None`][], `MISSING` means the parameter **was omitted entirely**.
-"""
+from zcord.missing import MISSING
 
 
 def from_payload(cls, payload: dict | MISSING, **transforms) -> Any:

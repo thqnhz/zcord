@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from zcord.http.client import HTTPClient
 from zcord.http.rest import REST
-from zcord.types import Channel, Guild, Message, Snowflake, User
-from zcord.utils import MISSING
+from zcord.missing import MISSING
+from zcord.models import Channel, Guild, Message, Snowflake, User
 
 
 class ConnectionState:
