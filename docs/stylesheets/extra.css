@@ -8,6 +8,16 @@
     --green: #a6e3a1;
     --mauve: #cba6f7;
     --text: #cdd6f4;
+    --subtext1: #bac2de;
+    --overlay2: #9399b2;
+
+    /* Read the docs injected version container */
+    --readthedocs-flyout-background-color: var(--crust) !important;
+    --readthedocs-flyout-current-version-color: var(--green) !important;
+    --readthedocs-flyout-item-link-color: var(--text) !important;
+    --readthedocs-flyout-section-heading-color: var(--subtext1) !important;
+    --readthedocs-flyout-link-color: var(--blue) !important;
+    --readthedocs-flyout-divider-color: var(--overlay2) !important;
 }
 
 [data-md-color-scheme="slate"] {
