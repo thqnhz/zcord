@@ -5,7 +5,7 @@ This project uses mixed Calendar versioning: YYYY.feature.patch(.tag)
 ## 2026.0.2.dev - [Unreleased]
 
 ### Added:
-  - `Guild`, `Embed`, `Attachment` classes
+  - `Guild`, `Embed`, `Attachment`, `Reaction` classes
   - `ConnectionState` for high level API calls
     - `send_message` to send a message with channel ID
     - `fetch_guild` to get guild info

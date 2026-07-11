@@ -11,6 +11,7 @@ from .embed import (
 )
 from .guild import Guild
 from .message import Message
+from .reaction import Reaction, ReactionCountDetails
 from .role import Role, RoleColors, RoleTags
 from .snowflake import Snowflake
 from .user import User
@@ -27,6 +28,8 @@ __all__ = [
     "EmbedVideo",
     "Guild",
     "Message",
+    "Reaction",
+    "ReactionCountDetails",
     "Role",
     "RoleColors",
     "RoleTags",
