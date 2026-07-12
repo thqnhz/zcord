@@ -3,6 +3,8 @@ from __future__ import annotations
 import aiohttp
 import orjson
 
+from zcord.errors import HTTPError
+
 
 class HTTPClient:
     BASE_URL = "https://discord.com/api/v10"
@@ -30,4 +32,6 @@ class HTTPClient:
         async with self.session.request(
             method, self.BASE_URL + endpoint, json=json
         ) as resp:
-            return orjson.loads(await resp.read())
+            if resp.ok:
+                return orjson.loads(await resp.read())
+            raise HTTPError(f"{resp.status} {resp.reason}")

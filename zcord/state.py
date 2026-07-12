@@ -46,3 +46,13 @@ class ConnectionState:
             after=after,
             limit=limit,
         )
+
+    async def fetch_channel_message(
+        self,
+        *,
+        channel_id: int | Snowflake,
+        message_id: int | Snowflake,
+    ) -> Message:
+        return await REST.fetch_channel_message(
+            self._http, channel_id=channel_id, message_id=message_id
+        )

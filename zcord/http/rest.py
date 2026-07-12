@@ -72,7 +72,9 @@ class REST:
         Returns:
             A list of [`Message`][] from newest to oldest.
 
-        Raises:
+        Raises
+            HTTPError:
+                The request failed.
             MutuallyExclusiveParamsError:
                 Parameters which mutually exclusive to each other have been \
                 passed.
@@ -90,6 +92,33 @@ class REST:
         return [Message._from_payload(m) for m in resp]
 
     @staticmethod
+    async def fetch_channel_message(
+        http: HTTPClient,
+        *,
+        channel_id: int | Snowflake,
+        message_id: int | Snowflake,
+    ) -> Message:
+        """
+        Fetch a specific message in a channel.
+
+        Params:
+            channel_id:
+                The channnel ID to get the message.
+            message_id:
+                The message ID.
+
+        Returns:
+            A Discord [`Message`][].
+
+        Raise:
+            HTTPError:
+                The request failed.
+        """
+        endpoint = f"/channels/{channel_id}/messages/{message_id}"
+        resp = await http.request("GET", endpoint)
+        return Message._from_payload(dict(resp))
+
+    @staticmethod
     async def fetch_guild(
         http: HTTPClient,
         guild_id: int | Snowflake,
@@ -98,6 +127,13 @@ class REST:
     ) -> Guild:
         """
         Fetch a guild with guild ID.
+
+        Returns:
+            A Discord [`Guild`][].
+
+        Raises:
+            HTTPError:
+                The request failed.
         """
         endpoint = f"/guilds/{guild_id}{_build_query(with_counts=with_counts)}"
         resp = await http.request("GET", endpoint)
