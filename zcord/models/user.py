@@ -1,15 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Self
+from typing import Any, ClassVar
 
 from zcord.missing import MISSING
+from zcord.models.base import ZcordModel
 from zcord.models.snowflake import Snowflake
-from zcord.utils import from_payload
 
 
 @dataclass(frozen=True, slots=True)
-class User:
+class User(ZcordModel):
     """
     Represent a Discord User
 
@@ -76,6 +76,6 @@ class User:
     collectibles: Any | None | MISSING = MISSING
     primary_guild: Any | None | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict) -> Self:
-        return from_payload(cls, payload, id=Snowflake)
+    _transforms: ClassVar[dict] = {
+        "id": Snowflake,
+    }

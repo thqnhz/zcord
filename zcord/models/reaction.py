@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Self
+from typing import Any, ClassVar
 
-from zcord.missing import MISSING
-from zcord.utils import from_payload
+from zcord.models.base import ZcordModel
 
 
 @dataclass(frozen=True, slots=True)
-class ReactionCountDetails:
+class ReactionCountDetails(ZcordModel):
     """
     Contain a breakdown of normal and super reaction counts for the associated \
     emoji.
@@ -23,13 +22,9 @@ class ReactionCountDetails:
     burst: int
     normal: int
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(cls, payload)
-
 
 @dataclass(frozen=True, slots=True)
-class Reaction:
+class Reaction(ZcordModel):
     """
     Represent a Discord reaction.
 
@@ -55,8 +50,4 @@ class Reaction:
     emoji: Any
     burst_colors: list[int]
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(
-            cls, payload, count_details=ReactionCountDetails._from_payload
-        )
+    transforms: ClassVar[dict] = {"count_details": ReactionCountDetails}

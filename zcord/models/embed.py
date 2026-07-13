@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Self
+from typing import ClassVar
 
 from zcord.missing import MISSING
-from zcord.utils import from_payload
+from zcord.models.base import ZcordModel
 
 
 @dataclass(frozen=True, slots=True)
-class EmbedFooter:
+class EmbedFooter(ZcordModel):
     """
     Contain embed's footer info.
 
@@ -26,13 +26,9 @@ class EmbedFooter:
     icon: str | MISSING = MISSING
     proxy_icon_url: str | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(cls, payload)
-
 
 @dataclass(frozen=True, slots=True)
-class EmbedImage:
+class EmbedImage(ZcordModel):
     """
     Contain embed's image info.
 
@@ -67,13 +63,9 @@ class EmbedImage:
     description: str | MISSING = MISSING
     flags: int | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(cls, payload)
-
 
 @dataclass(frozen=True, slots=True)
-class EmbedVideo:
+class EmbedVideo(ZcordModel):
     """
     Contain embed's video info.
 
@@ -108,13 +100,9 @@ class EmbedVideo:
     description: str | MISSING = MISSING
     flags: int | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(cls, payload)
-
 
 @dataclass(frozen=True, slots=True)
-class EmbedProvider:
+class EmbedProvider(ZcordModel):
     """
     Contain embed's provider info.
 
@@ -128,13 +116,9 @@ class EmbedProvider:
     name: str | MISSING = MISSING
     url: str | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(cls, payload)
-
 
 @dataclass(frozen=True, slots=True)
-class EmbedAuthor:
+class EmbedAuthor(ZcordModel):
     """
     Contain embed's author info.
 
@@ -154,13 +138,9 @@ class EmbedAuthor:
     icon_url: str | MISSING = MISSING
     proxy_icon_url: str | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(cls, payload)
-
 
 @dataclass(frozen=True, slots=True)
-class EmbedField:
+class EmbedField(ZcordModel):
     """
     Contain embed's field info.
 
@@ -177,13 +157,9 @@ class EmbedField:
     value: str
     inline: bool | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(cls, payload)
-
 
 @dataclass(frozen=True, slots=True)
-class Embed:
+class Embed(ZcordModel):
     """
     Represent a Discord embed.
 
@@ -233,17 +209,13 @@ class Embed:
     fields: list[EmbedField] | MISSING = MISSING
     flags: int | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(
-            cls,
-            payload,
-            timestamp=datetime.fromisoformat,
-            footer=EmbedFooter._from_payload,
-            image=EmbedImage._from_payload,
-            thumbnail=EmbedImage._from_payload,
-            video=EmbedVideo._from_payload,
-            provider=EmbedProvider._from_payload,
-            author=EmbedAuthor._from_payload,
-            fields=EmbedField._from_payload,
-        )
+    _transforms: ClassVar[dict] = {
+        "timestamp": datetime.fromisoformat,
+        "footer": EmbedFooter,
+        "image": EmbedImage,
+        "thumbnail": EmbedImage,
+        "video": EmbedVideo,
+        "provider": EmbedProvider,
+        "author": EmbedAuthor,
+        "fields": EmbedField,
+    }

@@ -1,3 +1,4 @@
+from .application import Application
 from .attachment import Attachment
 from .channel import Channel
 from .embed import (
@@ -17,6 +18,7 @@ from .snowflake import Snowflake
 from .user import User
 
 __all__ = [
+    "Application",
     "Attachment",
     "Channel",
     "Embed",

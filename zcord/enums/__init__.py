@@ -5,12 +5,13 @@ from .guild import (
     MFALevel,
     VerificationLevel,
 )
-from .message import MessageType
+from .message import MessageActivityType, MessageType
 
 __all__ = [
     "ChannelType",
     "ExplicitContentFilterLevel",
     "MFALevel",
+    "MessageActivityType",
     "MessageNotificationLevel",
     "MessageType",
     "VerificationLevel",

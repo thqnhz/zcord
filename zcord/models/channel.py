@@ -2,17 +2,17 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Self
+from typing import Any, ClassVar
 
 from zcord.enums import ChannelType
 from zcord.missing import MISSING
+from zcord.models.base import ZcordModel
 from zcord.models.snowflake import Snowflake
 from zcord.models.user import User
-from zcord.utils import from_payload
 
 
 @dataclass(frozen=True, slots=True)
-class Channel:
+class Channel(ZcordModel):
     """
     Represent a Discord server or DM channel.
 
@@ -150,22 +150,15 @@ class Channel:
     default_sort_order: int | None | MISSING = MISSING
     default_forum_layout: int | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(
-            cls,
-            payload,
-            id=Snowflake,
-            type=ChannelType,
-            guild_id=Snowflake,
-            last_message_id=Snowflake,
-            recipients=User._from_payload,
-            owner_id=Snowflake,
-            application_id=Snowflake,
-            parent_id=Snowflake,
-            last_pin_timestamp=datetime.fromisoformat,
-            applied_tags=Snowflake,
-        )
-
-    def __int__(self):
-        return self.id
+    _transforms: ClassVar[dict] = {
+        "id": Snowflake,
+        "type": ChannelType,
+        "guild_id": Snowflake,
+        "last_message_id": Snowflake,
+        "recipients": User,
+        "owner_id": Snowflake,
+        "application_id": Snowflake,
+        "parent_id": Snowflake,
+        "last_pin_timestamp": datetime.fromisoformat,
+        "applied_tags": Snowflake,
+    }

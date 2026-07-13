@@ -2,21 +2,21 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Self
+from typing import Any, ClassVar
 
-from zcord.enums import MessageType
+from zcord.enums.message import MessageType
 from zcord.missing import MISSING
 from zcord.models.attachment import Attachment
+from zcord.models.base import ZcordModel
 from zcord.models.channel import Channel
 from zcord.models.embed import Embed
 from zcord.models.reaction import Reaction
 from zcord.models.snowflake import Snowflake
 from zcord.models.user import User
-from zcord.utils import from_payload
 
 
 @dataclass(frozen=True, slots=True)
-class Message:
+class Message(ZcordModel):
     """Represent a Discord message.
 
     Attributes:
@@ -130,24 +130,20 @@ class Message:
     call: Any | MISSING = MISSING
     shared_client_theme: Any | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict) -> Self:
-        return from_payload(
-            cls,
-            payload,
-            id=Snowflake,
-            channel_id=Snowflake,
-            author=User._from_payload,
-            timestamp=datetime.fromisoformat,
-            edited_timestamp=datetime.fromisoformat,
-            mentions=User._from_payload,
-            attachments=Attachment._from_payload,
-            embeds=Embed._from_payload,
-            mention_roles=Snowflake,
-            mention_channels=Channel._from_payload,
-            reactions=Reaction._from_payload,
-            webhook_id=Snowflake,
-            type=MessageType,
-            application_id=Snowflake,
-            thread=Channel._from_payload,
-        )
+    _transforms: ClassVar[dict] = {
+        "id": Snowflake,
+        "channel_id": Snowflake,
+        "author": User,
+        "timestamp": datetime.fromisoformat,
+        "edited_timestamp": datetime.fromisoformat,
+        "mentions": User,
+        "attachments": Attachment,
+        "embeds": Embed,
+        "mention_roles": Snowflake,
+        "mention_channels": Channel,
+        "reactions": Reaction,
+        "webhook_id": Snowflake,
+        "type": MessageType,
+        "application_id": Snowflake,
+        "thread": Channel,
+    }

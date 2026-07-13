@@ -13,6 +13,7 @@ from .enums import (
 )
 from .missing import MISSING
 from .models import (
+    Application,
     Channel,
     Embed,
     EmbedAuthor,
@@ -36,6 +37,7 @@ __version__ = version("zcord")
 
 __all__ = [
     "MISSING",
+    "Application",
     "Bot",
     "Channel",
     "ChannelType",

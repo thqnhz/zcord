@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Self
+from typing import Any, ClassVar
 
 from zcord.enums import (
     ExplicitContentFilterLevel,
@@ -10,13 +10,13 @@ from zcord.enums import (
     VerificationLevel,
 )
 from zcord.missing import MISSING
+from zcord.models.base import ZcordModel
 from zcord.models.role import Role
 from zcord.models.snowflake import Snowflake
-from zcord.utils import from_payload
 
 
 @dataclass(frozen=True, slots=True)
-class Guild:
+class Guild(ZcordModel):
     """
     Represent a Discord server.
 
@@ -158,23 +158,19 @@ class Guild:
     welcome_screen: Any | MISSING = MISSING
     stickers: list[Any] | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict) -> Self:
-        return from_payload(
-            cls,
-            payload,
-            id=Snowflake,
-            owner_id=Snowflake,
-            afk_channel_id=Snowflake,
-            verification_level=VerificationLevel,
-            default_message_notifications=MessageNotificationLevel,
-            explicit_content_filter=ExplicitContentFilterLevel,
-            mfa_level=MFALevel,
-            roles=Role._from_payload,
-            application_id=Snowflake,
-            system_channel_id=Snowflake,
-            rules_channel_id=Snowflake,
-            public_updates_channel_id=Snowflake,
-            safety_alerts_channel_id=Snowflake,
-            widget_channel_id=Snowflake,
-        )
+    _transforms: ClassVar[dict] = {
+        "id": Snowflake,
+        "owner_id": Snowflake,
+        "afk_channel_id": Snowflake,
+        "verification_level": VerificationLevel,
+        "default_message_notifications": MessageNotificationLevel,
+        "explicit_content_filter": ExplicitContentFilterLevel,
+        "mfa_level": MFALevel,
+        "roles": Role,
+        "application_id": Snowflake,
+        "system_channel_id": Snowflake,
+        "rules_channel_id": Snowflake,
+        "public_updates_channel_id": Snowflake,
+        "safety_alerts_channel_id": Snowflake,
+        "widget_channel_id": Snowflake,
+    }

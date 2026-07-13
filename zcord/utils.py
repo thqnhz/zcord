@@ -6,6 +6,12 @@ from typing import Any
 from zcord.missing import MISSING
 
 
+def _apply_transform(transform, value):
+    if hasattr(transform, "_from_payload"):
+        return transform._from_payload(value)
+    return transform(value)
+
+
 def from_payload(cls, payload: dict | MISSING, **transforms) -> Any:
     if payload is MISSING:
         return MISSING
@@ -17,13 +23,10 @@ def from_payload(cls, payload: dict | MISSING, **transforms) -> Any:
             and value is not None
             and value is not f.default
         ):
+            t = transforms[f.name]
             if isinstance(value, list):
-                li = []
-                for v in value:
-                    v = transforms[f.name](v)
-                    li.append(v)
-                value = li
+                value = [_apply_transform(t, v) for v in value]
             else:
-                value = transforms[f.name](value)
+                value = _apply_transform(t, value)
         kwargs[f.name] = value
     return cls(**kwargs)

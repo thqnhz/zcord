@@ -2,16 +2,16 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Self
+from typing import Any, ClassVar
 
 from zcord.missing import MISSING
+from zcord.models.base import ZcordModel
 from zcord.models.snowflake import Snowflake
 from zcord.models.user import User
-from zcord.utils import from_payload
 
 
 @dataclass(frozen=True, slots=True)
-class Attachment:
+class Attachment(ZcordModel):
     """
     Represent a Discord attachment.
 
@@ -77,12 +77,8 @@ class Attachment:
     clip_created_at: datetime | MISSING = MISSING
     application: Any | None | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict | MISSING) -> Self | MISSING:
-        return from_payload(
-            cls,
-            payload,
-            id=Snowflake,
-            clip_participants=User._from_payload,
-            clip_created_at=datetime.fromisoformat,
-        )
+    _transforms: ClassVar[dict] = {
+        "id": Snowflake,
+        "clip_participants": User,
+        "clip_created_at": datetime.fromisoformat,
+    }

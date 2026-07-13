@@ -1,15 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal, Self
+from typing import ClassVar, Literal, Self
 
 from zcord.missing import MISSING
+from zcord.models.base import ZcordModel
 from zcord.models.snowflake import Snowflake
-from zcord.utils import from_payload
 
 
 @dataclass(frozen=True, slots=True)
-class RoleTags:
+class RoleTags(ZcordModel):
     """
     Role tags.
     """
@@ -22,19 +22,15 @@ class RoleTags:
     available_for_purchase: null | MISSING = MISSING
     guild_connections: null | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict) -> Self | MISSING:
-        return from_payload(
-            cls,
-            payload,
-            bot_id=Snowflake,
-            integration_id=Snowflake,
-            subscription_listing_id=Snowflake,
-        )
+    transforms: ClassVar[dict] = {
+        "bot_id": Snowflake,
+        "integration_id": Snowflake,
+        "subscription_listing_id": Snowflake,
+    }
 
 
 @dataclass(frozen=True, slots=True)
-class RoleColors:
+class RoleColors(ZcordModel):
     """
     Contain the colors of the role.
 
@@ -68,7 +64,7 @@ class RoleColors:
 
 
 @dataclass(frozen=True, slots=True)
-class Role:
+class Role(ZcordModel):
     """
     Represent a Discord role.
 
@@ -113,12 +109,8 @@ class Role:
     icon: str | None | MISSING = MISSING
     unicode_emoji: str | None | MISSING = MISSING
 
-    @classmethod
-    def _from_payload(cls, payload: dict) -> Self:
-        return from_payload(
-            cls,
-            payload,
-            id=Snowflake,
-            colors=RoleColors._from_payload,
-            tags=RoleTags._from_payload,
-        )
+    transforms: ClassVar[dict] = {
+        "id": Snowflake,
+        "colors": RoleColors,
+        "tags": RoleTags,
+    }
