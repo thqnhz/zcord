@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from zcord.errors import MutuallyExclusiveParamsError
 from zcord.http import HTTPClient
+from zcord.missing import MISSING
 from zcord.models import Channel, Guild, Message, Snowflake
-from zcord.utils import MISSING
 
 
 def _build_query(**params) -> str:
