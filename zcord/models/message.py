@@ -4,7 +4,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, ClassVar
 
-from zcord.enums.message import MessageType
+from zcord.enums.message import (
+    MessageActivityType,
+    MessageReferenceType,
+    MessageType,
+)
 from zcord.missing import MISSING
 from zcord.models.attachment import Attachment
 from zcord.models.base import ZcordModel
@@ -13,6 +17,70 @@ from zcord.models.embed import Embed
 from zcord.models.reaction import Reaction
 from zcord.models.snowflake import Snowflake
 from zcord.models.user import User
+
+
+@dataclass(frozen=True, slots=True)
+class MessageActivity(ZcordModel):
+    """
+    Contain info about a [`Message`][zcord.Message]'s activity.
+
+    Attributes:
+        type:
+            The type of activity.
+        party_id:
+            The party ID from a Rich presence event.
+    """
+
+    type: MessageActivityType
+    party_id: str | MISSING = MISSING
+
+    _transforms: ClassVar[dict] = {"type": MessageActivityType}
+
+
+@dataclass(frozen=True, slots=True)
+class MessageReference(ZcordModel):
+    """
+    Contains the additional data of the referenced message.
+
+    Attributes:
+        type:
+            The type of reference.
+        message_id:
+            The ID of the originating message.
+        channel_id:
+            The ID of the originating message's channnel.
+        guild_id:
+            The ID of the originating messgae's guild.
+        fail_if_not_exists:
+            Whether to error if the referenced message doesn't exist instead \
+            of sending as a normal (non-reply) message
+    """
+
+    type: MessageReferenceType = MessageReferenceType.DEFAULT
+    message_id: Snowflake | MISSING = MISSING
+    channel_id: Snowflake | MISSING = MISSING
+    guild_id: Snowflake | MISSING = MISSING
+    fail_if_not_exists: bool = True  # Maybe I won't need to expose this, idk
+
+    _transforms: ClassVar[dict] = {
+        "type": MessageReferenceType,
+        "message_id": Snowflake,
+        "channel_id": Snowflake,
+        "guild_id": Snowflake,
+    }
+
+
+@dataclass(frozen=True, slots=True)
+class MessageSnapshot(ZcordModel):
+    """
+    The snapshot of a forwarded message.
+
+    Attributes:
+        message:
+            The forwarded message.
+    """
+
+    message: Message
 
 
 @dataclass(frozen=True, slots=True)
@@ -116,8 +184,8 @@ class Message(ZcordModel):
     application: Any | MISSING = MISSING
     application_id: Snowflake | MISSING = MISSING
     flags: int | MISSING = MISSING
-    message_reference: Any | MISSING = MISSING
-    message_snapshots: Any | MISSING = MISSING
+    message_reference: MessageReference | MISSING = MISSING
+    message_snapshots: list[MessageSnapshot] | MISSING = MISSING
     referenced_message: Message | None | MISSING = MISSING
     interaction_metadata: Any | MISSING = MISSING
     thread: Channel | MISSING = MISSING
@@ -145,5 +213,10 @@ class Message(ZcordModel):
         "webhook_id": Snowflake,
         "type": MessageType,
         "application_id": Snowflake,
+        "message_reference": MessageReference,
+        "message_snapshots": MessageSnapshot,
         "thread": Channel,
     }
+
+
+Message._transforms["referenced_message"] = Message
