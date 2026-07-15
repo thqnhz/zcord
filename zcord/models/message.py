@@ -10,6 +10,7 @@ from zcord.enums.message import (
     MessageType,
 )
 from zcord.missing import MISSING
+from zcord.models.application import Application
 from zcord.models.attachment import Attachment
 from zcord.models.base import ZcordModel
 from zcord.models.channel import Channel
@@ -180,8 +181,8 @@ class Message(ZcordModel):
     mention_channels: list[Channel] | MISSING = MISSING
     reactions: list[Reaction] | MISSING = MISSING
     webhook_id: Snowflake | MISSING = MISSING
-    activity: Any | MISSING = MISSING
-    application: Any | MISSING = MISSING
+    activity: MessageActivity | MISSING = MISSING
+    application: Application | MISSING = MISSING
     application_id: Snowflake | MISSING = MISSING
     flags: int | MISSING = MISSING
     message_reference: MessageReference | MISSING = MISSING
@@ -211,6 +212,8 @@ class Message(ZcordModel):
         "mention_channels": Channel,
         "reactions": Reaction,
         "webhook_id": Snowflake,
+        "activity": MessageActivity,
+        "application": Application,
         "type": MessageType,
         "application_id": Snowflake,
         "message_reference": MessageReference,
