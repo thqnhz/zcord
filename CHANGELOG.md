@@ -9,6 +9,7 @@ This project uses mixed Calendar versioning: YYYY.feature.patch(.tag)
   - `ConnectionState` for high level API calls
     - `send_message` to send a message with channel ID
     - `fetch_guild` to get guild info
+    - `fetch_channel_messages`, `fetch_channel_message` to fetch channel message(s)
 
 ### Changed:
   - Moved API interaction to `REST` class
