@@ -11,6 +11,7 @@ from .embed import (
     EmbedVideo,
 )
 from .guild import Guild
+from .interaction import Interaction, InteractionMetadata
 from .message import Message, MessageActivity, MessageReference, MessageSnapshot
 from .reaction import Reaction, ReactionCountDetails
 from .role import Role, RoleColors, RoleTags
@@ -29,6 +30,8 @@ __all__ = [
     "EmbedProvider",
     "EmbedVideo",
     "Guild",
+    "Interaction",
+    "InteractionMetadata",
     "Message",
     "MessageActivity",
     "MessageReference",
