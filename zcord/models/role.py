@@ -22,7 +22,7 @@ class RoleTags(ZcordModel):
     available_for_purchase: null | MISSING = MISSING
     guild_connections: null | MISSING = MISSING
 
-    transforms: ClassVar[dict] = {
+    _transforms: ClassVar[dict] = {
         "bot_id": Snowflake,
         "integration_id": Snowflake,
         "subscription_listing_id": Snowflake,
@@ -109,7 +109,7 @@ class Role(ZcordModel):
     icon: str | None | MISSING = MISSING
     unicode_emoji: str | None | MISSING = MISSING
 
-    transforms: ClassVar[dict] = {
+    _transforms: ClassVar[dict] = {
         "id": Snowflake,
         "colors": RoleColors,
         "tags": RoleTags,

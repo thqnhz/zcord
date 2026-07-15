@@ -50,4 +50,4 @@ class Reaction(ZcordModel):
     emoji: Any
     burst_colors: list[int]
 
-    transforms: ClassVar[dict] = {"count_details": ReactionCountDetails}
+    _transforms: ClassVar[dict] = {"count_details": ReactionCountDetails}
