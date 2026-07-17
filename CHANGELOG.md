@@ -16,6 +16,7 @@ This project uses mixed Calendar versioning: YYYY.feature.patch(.tag)
     - `send_message` to send a message with channel ID
     - `fetch_guild` to get guild info
     - `fetch_channel_messages`, `fetch_channel_message` to fetch channel message(s)
+  - AI usage policy.
 
 ### Changed:
   - Moved API interaction to `REST` class
