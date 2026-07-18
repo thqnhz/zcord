@@ -7,6 +7,7 @@ from .guild import (
 )
 from .interaction import InteractionType
 from .message import MessageActivityType, MessageReferenceType, MessageType
+from .sticker import StickerFormatType, StickerType
 
 __all__ = [
     "ChannelType",
@@ -17,5 +18,7 @@ __all__ = [
     "MessageNotificationLevel",
     "MessageReferenceType",
     "MessageType",
+    "StickerFormatType",
+    "StickerType",
     "VerificationLevel",
 ]
