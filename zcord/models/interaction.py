@@ -1,16 +1,18 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, ClassVar
+from typing import TYPE_CHECKING, Any, ClassVar
 
 from zcord.enums.interaction import InteractionType
 from zcord.missing import MISSING
 from zcord.models.base import ZcordModel
 from zcord.models.channel import Channel
 from zcord.models.guild import Guild
-from zcord.models.message import Message
 from zcord.models.snowflake import Snowflake
 from zcord.models.user import User
+
+if TYPE_CHECKING:
+    from zcord.models.message import Message
 
 
 @dataclass(frozen=True, slots=True)
@@ -66,7 +68,7 @@ InteractionMetadata._transforms["triggering_interaction_metadata"] = (
 
 
 @dataclass(frozen=True, slots=True)
-class Interaction:
+class Interaction(ZcordModel):
     """
     Represent a Discord interaction.
 
@@ -131,3 +133,17 @@ class Interaction:
     locale: str | MISSING = MISSING
     guild_locale: str | MISSING = MISSING
     context: Any | MISSING = MISSING
+
+    from zcord.models.message import Message
+
+    _transforms: ClassVar[dict] = {
+        "id": Snowflake,
+        "application_id": Snowflake,
+        "type": InteractionType,
+        "guild": Guild,
+        "guild_id": Snowflake,
+        "channel": Channel,
+        "channel_id": Snowflake,
+        "user": User,
+        "message": Message,
+    }
