@@ -75,4 +75,5 @@ dev = [
     "mkdocs>=1.6.1",
     "mkdocs-materialx>=10.1.8",
     "mkdocstrings[python]>=1.0.4",
+    "ruff>=0.15.22",
 ]
