@@ -51,6 +51,15 @@ select = [
     "SIM", # simplify
     "C4",  # comprehensions
     "RUF", # ruff-specific
+    "TCH", # flake8-type-checking
+    "FA",  # enforce from __future__ import annotations
+    "T20", # no print()
+    "PERF",# perf pattern stuff
+    "FURB",# refurb
+]
+ignore = [
+    "PLR0913", # too many argumets
+    "PLR2004", # magic value comparison
 ]
 
 [tool.ruff.format]
