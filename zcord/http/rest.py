@@ -2,9 +2,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from zcord.errors import MutuallyExclusiveParamsError
+from zcord.errors import HTTPError, MutuallyExclusiveParamsError
 from zcord.missing import MISSING
-from zcord.models import Channel, Guild, Message, Snowflake
+from zcord.models import (
+    Channel,
+    Guild,
+    Message,
+    Snowflake,
+    Sticker,
+    StickerPack,
+)
 
 if TYPE_CHECKING:
     from zcord.http import HTTPClient
@@ -142,3 +149,176 @@ class REST:
         endpoint = f"/guilds/{guild_id}{_build_query(with_counts=with_counts)}"
         resp = await http.request("GET", endpoint)
         return Guild._from_payload(dict(resp))
+
+    @staticmethod
+    async def fetch_sticker(
+        http: HTTPClient, *, sticker_id: int | Snowflake
+    ) -> Sticker:
+        """
+        Fetch a sticker with its ID.
+
+        Returns:
+            A Discord [`Sticker`][].
+
+        Raises:
+            HTTPError:
+                The request failed.
+        """
+        resp = await http.request("GET", f"/stickers/{sticker_id}")
+        return Sticker._from_payload(dict(resp))
+
+    @staticmethod
+    async def fetch_sticker_packs(http: HTTPClient) -> list[StickerPack]:
+        """
+        Fetch a list of available sticker packs.
+
+        Returns:
+            A list of Discord [`StickerPack`][].
+
+        Raises:
+            HTTPError:
+                The request failed.
+        """
+        resp = await http.request("GET", "/sticker-packs")
+        return [
+            StickerPack._from_payload(r) for r in dict(resp)["sticker_packs"]
+        ]
+
+    @staticmethod
+    async def fetch_sticker_pack(
+        http: HTTPClient, *, pack_id: int | Snowflake
+    ) -> StickerPack:
+        """
+        Fetch a sticker pack by ID.
+
+        Returns:
+            A Discord [`StickerPack`][].
+
+        Raises:
+            HTTPError:
+                The request failed.
+        """
+        resp = await http.request("GET", f"/sticker-packs/{pack_id}")
+        return StickerPack._from_payload(dict(resp))
+
+    @staticmethod
+    async def fetch_guild_stickers(
+        http: HTTPClient, *, guild_id: int | Snowflake | Guild
+    ) -> list[Sticker]:
+        """
+        Fetch all guild stickers.
+
+        Returns:
+            A list of [`Sticker`][]s.
+
+        Raises:
+            HTTPError:
+                The request failed.
+        """
+        resp = await http.request("GET", f"/guilds/{int(guild_id)}/stickers")
+        return [Sticker._from_payload(r) for r in resp]
+
+    @staticmethod
+    async def fetch_guild_sticker(
+        http: HTTPClient,
+        *,
+        guild_id: int | Snowflake | Guild,
+        sticker_id: int | Snowflake,
+    ) -> Sticker:
+        """
+        Fetch a specific guild sticker.
+
+        Returns:
+            A [`Sticker`].
+
+        Raises:
+            HTTPError:
+                The request failed.
+        """
+        resp = await http.request(
+            "GET", f"/guilds/{int(guild_id)}/stickers/{sticker_id}"
+        )
+        return Sticker._from_payload(dict(resp))
+
+    @staticmethod
+    async def create_guild_sticker(
+        http: HTTPClient,
+        *,
+        guild_id: int | Snowflake | Guild,
+        name: str,
+        description: str = "",
+        tags: str = "",
+        file,
+    ) -> Sticker:
+        """|Not implemented|
+        Create a new sticker for the guild.
+
+        Params:
+            name:
+                The sticker name (2-30 character long).
+            description:
+                The sticker description (either empty or 2-100 character long).
+            tags:
+                The sticker tags for autocomplete/suggestion \
+                (max 200 characters).
+            file:
+                The sticker to upload.
+
+        Returns:
+            The newly uploaded sticker.
+
+        Raises:
+            HTTPError:
+                The request failed.
+        """
+        raise NotImplementedError
+
+    @staticmethod
+    async def edit_guild_sticker(
+        http: HTTPClient,
+        *,
+        guild_id: int | Snowflake | Guild,
+        sticker_id: int | Snowflake,
+        name: str,
+        description: str | None = None,
+        tags: str,
+    ) -> Sticker:
+        """|Not implemented|
+        Modify the given sticker.
+
+        Params:
+            name:
+                The updated name of the sticker (2-30 character long).
+            description:
+                The updated description of the sticker \
+                (`None` to keep the old one, 2-100 character long if update).
+            tags:
+                The updated tags of the sticker (max 200 characters).
+        """
+        raise NotImplementedError
+
+    @staticmethod
+    async def delete_guild_sticker(
+        http: HTTPClient,
+        *,
+        guild_id: int | Snowflake | Guild,
+        sticker_id: int | Snowflake | Sticker,
+    ) -> bool:
+        """
+        Delete the given sticker.
+
+        Returns:
+            If the request is successful or not.
+
+        Raises:
+            HTTPError:
+                The request failed.
+        """
+        # TODO: Maybe create a method in client.py to only get the return code
+        async with http.session as cs:
+            resp = await cs.request(
+                "DELETE", f"/guilds/{guild_id}/stickers/{sticker_id}"
+            )
+            if resp.status == 204:
+                return True
+            raise HTTPError(f"{resp.status} {resp.reason}")

@@ -60,3 +60,42 @@ class Sticker(ZcordModel):
         "guild_id": Snowflake,
         "user": User,
     }
+
+
+@dataclass(frozen=True, slots=True)
+class StickerPack(ZcordModel):
+    """
+    Represent a pack of standard stickers.
+
+    Attributes:
+        id:
+            The ID of the pack.
+        stickers:
+            The stickers in the pack.
+        name:
+            The name of the pack.
+        sku_id:
+            The ID of the pack's SKU.
+        cover_sticker_id:
+            The ID of a sticker in the pack which is shown as the pack's icon.
+        description:
+            The description of the pack.
+        banner_asset_id:
+            The ID of the pack's banner image.
+    """
+
+    id: Snowflake
+    stickers: list[Sticker]
+    name: str
+    sku_id: Snowflake
+    description: str
+    cover_sticker_id: Snowflake | MISSING = MISSING
+    banner_asset_id: Snowflake | MISSING = MISSING
+
+    _transforms: ClassVar[dict] = {
+        "id": Snowflake,
+        "stickers": Sticker,
+        "sku_id": Snowflake,
+        "cover_sticker_id": Snowflake,
+        "banner_asset_id": Snowflake,
+    }

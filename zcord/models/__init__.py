@@ -16,6 +16,7 @@ from .message import Message, MessageActivity, MessageReference, MessageSnapshot
 from .reaction import Reaction, ReactionCountDetails
 from .role import Role, RoleColors, RoleTags
 from .snowflake import Snowflake
+from .sticker import Sticker, StickerPack
 from .user import User
 
 __all__ = [
@@ -42,5 +43,7 @@ __all__ = [
     "RoleColors",
     "RoleTags",
     "Snowflake",
+    "Sticker",
+    "StickerPack",
     "User",
 ]
