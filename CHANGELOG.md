@@ -12,10 +12,15 @@ This project uses mixed Calendar versioning: YYYY.feature.patch(.tag)
     - `Reaction`
     - `Interaction`
     - `InteractionMetadata`
+    - `Sticker`
+    - `StickerPack`
   - `ConnectionState` for high level API calls
     - `send_message` to send a message with channel ID
     - `fetch_guild` to get guild info
     - `fetch_channel_messages`, `fetch_channel_message` to fetch channel message(s)
+    - `fetch_sticker_pack(s)` to fetch sticker pack(s)
+    - `fetch/edit_guild_sticker` to fetch/edit guild sticker (WIP)
+    - `delete_guild_sticker` to delete guild sticker
   - AI usage policy.
 
 ### Changed:
