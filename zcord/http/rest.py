@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from zcord.errors import MutuallyExclusiveParamsError
-from zcord.http import HTTPClient
 from zcord.missing import MISSING
 from zcord.models import Channel, Guild, Message, Snowflake
+
+if TYPE_CHECKING:
+    from zcord.http import HTTPClient
 
 
 def _build_query(**params) -> str:

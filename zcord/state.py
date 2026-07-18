@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from zcord.http.client import HTTPClient
 from zcord.http.rest import REST
 from zcord.missing import MISSING
-from zcord.models import Channel, Guild, Message, Snowflake, User
+
+if TYPE_CHECKING:
+    from zcord.models import Channel, Guild, Message, Snowflake, User
 
 
 class ConnectionState:
