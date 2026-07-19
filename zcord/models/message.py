@@ -17,7 +17,7 @@ from zcord.models.channel import Channel
 from zcord.models.embed import Embed
 from zcord.models.interaction import InteractionMetadata
 from zcord.models.reaction import Reaction
-from zcord.models.role import RoleSubscriptionData
+from zcord.models.role import Role, RoleSubscriptionData
 from zcord.models.snowflake import Snowflake
 from zcord.models.sticker import Sticker
 from zcord.models.user import User
@@ -197,7 +197,7 @@ class Message(ZcordModel):
     sticker_items: list[Sticker] | MISSING = MISSING
     position: int | MISSING = MISSING
     role_subscription_data: RoleSubscriptionData | MISSING = MISSING
-    resolved: Any | MISSING = MISSING
+    resolved: Resolved | MISSING = MISSING
     poll: Any | MISSING = MISSING
     call: Any | MISSING = MISSING
     shared_client_theme: Any | MISSING = MISSING
@@ -228,4 +228,41 @@ class Message(ZcordModel):
     }
 
 
+@dataclass(frozen=True, slots=True)
+class Resolved(ZcordModel):
+    """
+    Resolved data in the [`Message`][].
+
+    Attributes:
+        users:
+            A dict of user ID to User.
+        members:
+            A dict of member ID to Member.
+        roles:
+            A dict of role ID to Role.
+        channels:
+            A dict of channel ID to Channel.
+        messages:
+            A dict of message ID to Message.
+        attachments:
+            A dict of attachment ID to Attachment.
+    """
+
+    users: dict[Snowflake, User] | MISSING = MISSING
+    members: dict[Snowflake, Any] | MISSING = MISSING
+    roles: dict[Snowflake, Role] | MISSING = MISSING
+    channels: dict[Snowflake, Channel] | MISSING = MISSING
+    messages: dict[Snowflake, Message] | MISSING = MISSING
+    attachments: dict[Snowflake, Attachment] | MISSING = MISSING
+
+    _transforms: ClassVar[dict] = {
+        "users": dict[Snowflake, User],
+        "roles": dict[Snowflake, Role],
+        "channels": dict[Snowflake, Channel],
+        "messages": dict[Snowflake, Message],
+        "attachments": dict[Snowflake, Attachment],
+    }
+
+
 Message._transforms["referenced_message"] = Message
+Message._transforms["resolved"] = Resolved
