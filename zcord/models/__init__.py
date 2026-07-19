@@ -14,7 +14,7 @@ from .guild import Guild
 from .interaction import Interaction, InteractionMetadata
 from .message import Message, MessageActivity, MessageReference, MessageSnapshot
 from .reaction import Reaction, ReactionCountDetails
-from .role import Role, RoleColors, RoleTags
+from .role import Role, RoleColors, RoleSubscriptionData, RoleTags
 from .snowflake import Snowflake
 from .sticker import Sticker, StickerPack
 from .user import User
@@ -41,6 +41,7 @@ __all__ = [
     "ReactionCountDetails",
     "Role",
     "RoleColors",
+    "RoleSubscriptionData",
     "RoleTags",
     "Snowflake",
     "Sticker",

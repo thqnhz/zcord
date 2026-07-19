@@ -17,6 +17,7 @@ from zcord.models.channel import Channel
 from zcord.models.embed import Embed
 from zcord.models.interaction import InteractionMetadata
 from zcord.models.reaction import Reaction
+from zcord.models.role import RoleSubscriptionData
 from zcord.models.snowflake import Snowflake
 from zcord.models.sticker import Sticker
 from zcord.models.user import User
@@ -195,7 +196,7 @@ class Message(ZcordModel):
     components: list | MISSING = MISSING
     sticker_items: list[Sticker] | MISSING = MISSING
     position: int | MISSING = MISSING
-    role_subscription_data: Any | MISSING = MISSING
+    role_subscription_data: RoleSubscriptionData | MISSING = MISSING
     resolved: Any | MISSING = MISSING
     poll: Any | MISSING = MISSING
     call: Any | MISSING = MISSING
@@ -223,6 +224,7 @@ class Message(ZcordModel):
         "interaction_metadata": InteractionMetadata,
         "thread": Channel,
         "sticker_items": Sticker,
+        "role_subscription_data": RoleSubscriptionData,
     }
 
 

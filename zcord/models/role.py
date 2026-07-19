@@ -114,3 +114,31 @@ class Role(ZcordModel):
         "colors": RoleColors,
         "tags": RoleTags,
     }
+
+
+@dataclass(frozen=True, slots=True)
+class RoleSubscriptionData(ZcordModel):
+    """
+    Contain data of the role subscription purchase or renewal.
+
+    Attributes:
+        role_subscription_listing_id:
+            The ID of the SKU and listing that the user is subscribed to.
+        tier_name:
+            The name of the tier that the user is subscribed to.
+        total_months_subscribed:
+            The cumulative number of months that the user has been subscribed \
+            for.
+        is_renewal:
+            Whether this notification is for a renewal rather than a new \
+            purchase.
+    """
+
+    role_subscription_listing_id: Snowflake
+    tier_name: str
+    total_months_subscribed: int
+    is_renewal: bool
+
+    _transforms: ClassVar[dict] = {
+        "role_subscription_listing_id": Snowflake,
+    }
