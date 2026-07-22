@@ -10,6 +10,8 @@ from .enums import (
     MessageNotificationLevel,
     MessageType,
     MFALevel,
+    StickerFormatType,
+    StickerType,
     VerificationLevel,
 )
 from .missing import MISSING
@@ -34,6 +36,7 @@ from .models import (
     RoleSubscriptionData,
     RoleTags,
     Snowflake,
+    Sticker,
     User,
 )
 
@@ -55,6 +58,7 @@ __all__ = [
     "ExplicitContentFilterLevel",
     "Guild",
     "Interaction",
+    "Interaction",
     "InteractionMetadata",
     "InteractionType",
     "MFALevel",
@@ -68,6 +72,9 @@ __all__ = [
     "RoleSubscriptionData",
     "RoleTags",
     "Snowflake",
+    "Sticker",
+    "StickerFormatType",
+    "StickerType",
     "User",
     "VerificationLevel",
 ]

@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 @dataclass(frozen=True, slots=True)
 class InteractionMetadata(ZcordModel):
     """
-    Contain metadata about the [`Interaction`][].
+    Contain metadata about the [`Interaction`][zcord.Interaction].
 
     Attributes:
         id:

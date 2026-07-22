@@ -8,7 +8,7 @@ class StickerType(IntEnum):
     | Type | Value | Description |
     |------|-------|-------------|
     | `STANDARD` | `1` | An official sticker in a pack. |
-    | `GUILD` | `2` | A [`Sticker`][] uploaded to a guild. |
+    | `GUILD` | `2` | A [`Sticker`][zcord.Sticker] uploaded to a guild. |
     """
 
     STANDARD = 1
