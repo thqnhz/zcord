@@ -22,6 +22,8 @@ This project uses mixed Calendar versioning: YYYY.feature.patch(.tag)
     - `fetch_sticker_pack(s)` to fetch sticker pack(s)
     - `fetch/edit_guild_sticker` to fetch/edit guild sticker (WIP)
     - `delete_guild_sticker` to delete guild sticker
+    - `fetch_answer_voters` to fetch answer voters
+    - `end_poll` to end a poll
   - AI usage policy.
 
 ### Changed:

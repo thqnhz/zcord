@@ -137,3 +137,33 @@ class ConnectionState:
         return await REST.delete_guild_sticker(
             self._http, guild_id=guild_id, sticker_id=sticker_id
         )
+
+    async def fetch_answer_voters(
+        self,
+        *,
+        channel_id: int | Snowflake | Channel,
+        message_id: int | Snowflake | Message,
+        answer_id: int,
+        after: int | Snowflake | MISSING = MISSING,
+        limit: int = 50,
+    ) -> list[User]:
+        return await REST.fetch_answer_voters(
+            self._http,
+            channel_id=channel_id,
+            message_id=message_id,
+            answer_id=answer_id,
+            after=after,
+            limit=limit,
+        )
+
+    async def end_poll(
+        self,
+        *,
+        channel_id: int | Snowflake | Channel,
+        message_id: int | Snowflake | Message,
+    ) -> Message:
+        return await REST.end_poll(
+            self._http,
+            channel_id=channel_id,
+            message_id=message_id,
+        )

@@ -11,6 +11,7 @@ from zcord.models import (
     Snowflake,
     Sticker,
     StickerPack,
+    User,
 )
 
 if TYPE_CHECKING:
@@ -322,3 +323,55 @@ class REST:
             if resp.status == 204:
                 return True
             raise HTTPError(f"{resp.status} {resp.reason}")
+
+    @staticmethod
+    async def fetch_answer_voters(
+        http: HTTPClient,
+        *,
+        channel_id: int | Snowflake | Channel,
+        message_id: int | Snowflake | Message,
+        answer_id: int,
+        after: int | Snowflake | MISSING = MISSING,
+        limit: int = 50,
+    ) -> list[User]:
+        """
+        Fetch the voters for a given answer in a poll.
+
+        Returns:
+            A list of users who voted for the answer.
+
+        Raises:
+            HTTPError:
+                The request failed.
+            ValueError:
+                Wrong limit amount has been provided.
+        """
+        if limit < 1 or limit > 100:
+            raise ValueError("limit must be between 1 and 100")
+        endpoint = (
+            f"/channels/{int(channel_id)}/polls/{int(message_id)}/answers/{answer_id}"
+            + _build_query(after=after, limit=limit)
+        )
+        resp = await http.request("GET", endpoint)
+        return [User._from_payload(user) for user in dict(resp)["users"]]
+
+    @staticmethod
+    async def end_poll(
+        http: HTTPClient,
+        *,
+        channel_id: int | Snowflake | Channel,
+        message_id: int | Snowflake | Message,
+    ) -> Message:
+        """
+        End a poll and return the updated message.
+
+        Returns:
+            The updated message after the poll has been ended.
+
+        Raises:
+            HTTPError:
+                The request failed.
+        """
+        endpoint = f"/channels/{int(channel_id)}/polls/{int(message_id)}/expire"
+        resp = await http.request("POST", endpoint)
+        return Message._from_payload(dict(resp))
