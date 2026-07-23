@@ -14,6 +14,7 @@ This project uses mixed Calendar versioning: YYYY.feature.patch(.tag)
     - `InteractionMetadata`
     - `Sticker`
     - `StickerPack`
+    - `Poll`
   - `ConnectionState` for high level API calls
     - `send_message` to send a message with channel ID
     - `fetch_guild` to get guild info

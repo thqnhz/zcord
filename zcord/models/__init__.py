@@ -13,6 +13,7 @@ from .embed import (
 from .guild import Guild
 from .interaction import Interaction, InteractionMetadata
 from .message import Message, MessageActivity, MessageReference, MessageSnapshot
+from .poll import Poll, PollAnswer, PollAnswerCount, PollMedia, PollResults
 from .reaction import Reaction, ReactionCountDetails
 from .role import Role, RoleColors, RoleSubscriptionData, RoleTags
 from .snowflake import Snowflake
@@ -37,6 +38,11 @@ __all__ = [
     "MessageActivity",
     "MessageReference",
     "MessageSnapshot",
+    "Poll",
+    "PollAnswer",
+    "PollAnswerCount",
+    "PollMedia",
+    "PollResults",
     "Reaction",
     "ReactionCountDetails",
     "Role",

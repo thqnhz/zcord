@@ -16,6 +16,7 @@ from zcord.models.base import ZcordModel
 from zcord.models.channel import Channel
 from zcord.models.embed import Embed
 from zcord.models.interaction import InteractionMetadata
+from zcord.models.poll import Poll
 from zcord.models.reaction import Reaction
 from zcord.models.role import Role, RoleSubscriptionData
 from zcord.models.snowflake import Snowflake
@@ -198,7 +199,7 @@ class Message(ZcordModel):
     position: int | MISSING = MISSING
     role_subscription_data: RoleSubscriptionData | MISSING = MISSING
     resolved: Resolved | MISSING = MISSING
-    poll: Any | MISSING = MISSING
+    poll: Poll | MISSING = MISSING
     call: Any | MISSING = MISSING
     shared_client_theme: Any | MISSING = MISSING
 
@@ -225,6 +226,7 @@ class Message(ZcordModel):
         "thread": Channel,
         "sticker_items": Sticker,
         "role_subscription_data": RoleSubscriptionData,
+        "poll": Poll,
     }
 
 

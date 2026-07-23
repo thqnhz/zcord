@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import dataclasses
-import typing
 from typing import Any
 
 from zcord.missing import MISSING
@@ -27,12 +26,15 @@ def from_payload(cls, payload: dict | MISSING, **transforms) -> Any:
             t = transforms[f.name]
             if isinstance(value, list):
                 value = [_apply_transform(t, v) for v in value]
-            elif isinstance(value, dict):
-                ktype, vtype = typing.get_args(t)
-                value = {
-                    _apply_transform(ktype, k): _apply_transform(vtype, v)
-                    for k, v in value.items()
-                }
+            # NOTE: This doesn't work for stacked payload objects
+            # NOTE: Maybe I could find a better way to do it.
+
+            # elif isinstance(value, dict):
+            #     ktype, vtype = typing.get_args(t)
+            #     value = {
+            #         _apply_transform(ktype, k): _apply_transform(vtype, v)
+            #         for k, v in value.items()
+            #     }
             else:
                 value = _apply_transform(t, value)
         kwargs[f.name] = value
