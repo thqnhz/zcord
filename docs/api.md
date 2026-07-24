@@ -13,5 +13,3 @@
 ---
 
 ::: zcord.errors
-    options:
-      show_object_full_path: true
